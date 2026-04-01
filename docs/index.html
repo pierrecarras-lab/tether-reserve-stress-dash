@@ -299,7 +299,8 @@ label,
 .two-column,
 .scenario-grid,
 .delta-grid,
-.notes-grid {
+.notes-grid,
+.history-summary {
   display: grid;
   gap: 18px;
 }
@@ -307,6 +308,174 @@ label,
 .metrics-grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   margin-top: 18px;
+}
+
+.history-panel {
+  margin-top: 18px;
+}
+
+.history-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  margin-bottom: 18px;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.legend-swatch {
+  width: 18px;
+  height: 3px;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+.legend-swatch.official {
+  background: linear-gradient(90deg, var(--reserve-fill-start), var(--reserve-fill-end));
+}
+
+.legend-swatch.modeled {
+  background: linear-gradient(90deg, var(--button-start), var(--button-end));
+}
+
+.legend-swatch.threshold {
+  background: repeating-linear-gradient(
+    90deg,
+    var(--danger) 0 6px,
+    transparent 6px 10px
+  );
+}
+
+.history-chart-shell {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background:
+    linear-gradient(180deg, var(--delta-top), var(--delta-bottom)),
+    var(--panel-strong);
+}
+
+.history-chart {
+  width: 100%;
+  min-width: 920px;
+  display: block;
+}
+
+.history-summary {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin-top: 18px;
+}
+
+.history-card {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, var(--delta-top), var(--delta-bottom)),
+    var(--panel-strong);
+}
+
+.history-card.modeled {
+  background: linear-gradient(180deg, var(--status-top), var(--status-bottom));
+}
+
+.history-card-label {
+  margin: 0 0 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.history-card-date,
+.history-card-note,
+.history-card-detail {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.history-card-date {
+  margin-bottom: 12px;
+}
+
+.history-card-value {
+  margin: 0 0 8px;
+}
+
+.history-card-detail + .history-card-detail {
+  margin-top: 6px;
+}
+
+.chart-grid-line,
+.chart-axis-line {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+
+.chart-grid-line.threshold {
+  stroke: var(--danger);
+  stroke-dasharray: 6 6;
+  stroke-width: 1.5;
+}
+
+.chart-axis-label,
+.chart-point-label,
+.chart-x-label,
+.chart-threshold-label {
+  fill: var(--muted);
+  font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+}
+
+.chart-axis-label,
+.chart-threshold-label {
+  font-size: 12px;
+}
+
+.chart-x-label {
+  font-size: 12px;
+  text-anchor: middle;
+}
+
+.chart-point-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-anchor: middle;
+}
+
+.chart-area {
+  fill: color-mix(in srgb, var(--reserve-fill-start) 18%, transparent);
+}
+
+.chart-line {
+  fill: none;
+  stroke: var(--reserve-fill-start);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.chart-line.modeled {
+  stroke: var(--button-start);
+  stroke-dasharray: 10 8;
+}
+
+.chart-point {
+  fill: var(--reserve-fill-start);
+  stroke: var(--panel-bottom);
+  stroke-width: 3;
+}
+
+.chart-point.modeled {
+  fill: var(--button-start);
 }
 
 .metric-card,
@@ -526,7 +695,8 @@ a:hover {
   .two-column,
   .delta-grid,
   .scenario-grid,
-  .notes-grid {
+  .notes-grid,
+  .history-summary {
     grid-template-columns: 1fr;
   }
 
@@ -571,7 +741,8 @@ a:hover {
     width: 140px;
   }
 }
-    </style>
+
+</style>
   </head>
   <body>
     <div class="page-shell">
@@ -623,6 +794,49 @@ a:hover {
           <h2 id="coverageRatioValue">0.00%</h2>
           <p class="metric-footnote">Estimated equity as a share of liabilities</p>
         </article>
+      </section>
+
+      <section class="panel history-panel">
+        <div class="section-header">
+          <div>
+            <p class="section-kicker">12-Month History</p>
+            <h3>Historical cushion and coverage</h3>
+          </div>
+          <p class="section-note">
+            Official quarter-end reports for March 31, June 30, September 30, and
+            December 31, 2025, plus one distinct current modeled point.
+          </p>
+        </div>
+        <div class="history-legend">
+          <span class="legend-item">
+            <span class="legend-swatch official"></span>
+            Official equity / liabilities cushion
+          </span>
+          <span class="legend-item">
+            <span class="legend-swatch modeled"></span>
+            Current modeled cushion
+          </span>
+          <span class="legend-item">
+            <span class="legend-swatch threshold"></span>
+            3.00% alert threshold
+          </span>
+        </div>
+        <div class="history-chart-shell">
+          <svg
+            id="historyChart"
+            class="history-chart"
+            viewBox="0 0 960 360"
+            role="img"
+            aria-labelledby="historyChartTitle historyChartDesc"
+          >
+            <title id="historyChartTitle">Tether historical equity to liabilities cushion</title>
+            <desc id="historyChartDesc">
+              Tether official quarter-end equity to liabilities cushion over the last
+              12 months, plus a current modeled point.
+            </desc>
+          </svg>
+        </div>
+        <div id="historySummary" class="history-summary"></div>
       </section>
 
       <section class="two-column">
@@ -810,6 +1024,15 @@ a:hover {
                 <a href="https://tether.io/data" target="_blank" rel="noreferrer">Tether Data page, which currently lists the latest official reserve report</a>
               </li>
               <li>
+                <a href="https://tether.io/news/tether-approaching-120b-in-u-s-treasuries-confirms-quarterly-operating-profit-over-1b-and-strengthens-global-usdt-demand-in-q1-2025/" target="_blank" rel="noreferrer">Tether Q1 2025 attestation release, published May 1, 2025</a>
+              </li>
+              <li>
+                <a href="https://tether.io/news/tether-issues-20b-in-usdt-ytd-becomes-one-of-largest-u-s-debt-holders-with-127b-in-treasuries-net-profit-4-9b-in-q2-2025-attestation-report/" target="_blank" rel="noreferrer">Tether Q2 2025 attestation release, published July 31, 2025</a>
+              </li>
+              <li>
+                <a href="https://tether.io/news/tether-attestation-reports-q1-q3-2025-profit-surpassing-10b-record-levels-in-us-treasuries-exposure-accelerating-usdt-supply-amidst-worlds-macroeconomic-uncertainty/" target="_blank" rel="noreferrer">Tether Q3 2025 attestation release, published October 31, 2025</a>
+              </li>
+              <li>
                 <a href="https://tether.io/news/tether-delivers-10b-profits-in-2025-6-3b-in-excess-reserves-and-record-141-billion-exposure-in-u-s-treasury-holdings/" target="_blank" rel="noreferrer">Tether Q4 2025 attestation release, published January 30, 2026</a>
               </li>
               <li>
@@ -886,6 +1109,37 @@ const REPORT = {
     },
   ],
 };
+
+const HISTORICAL_REPORTS = [
+  {
+    label: "Q1 2025",
+    date: "2025-03-31",
+    sourceType: "official",
+    assets: 149_274_515_988,
+    liabilities: 143_682_673_588,
+  },
+  {
+    label: "Q2 2025",
+    date: "2025-06-30",
+    sourceType: "official",
+    assets: 162_574_933_798,
+    liabilities: 157_108_009_474,
+  },
+  {
+    label: "Q3 2025",
+    date: "2025-09-30",
+    sourceType: "official",
+    assets: 181_223_149_214,
+    liabilities: 174_445_364_503,
+  },
+  {
+    label: "Q4 2025",
+    date: "2025-12-31",
+    sourceType: "official",
+    assets: 192_877_729_144,
+    liabilities: 186_539_895_593,
+  },
+];
 
 const PRICED_EXPOSURES = {
   BTC: {
@@ -971,6 +1225,8 @@ const dom = {
   reportedLiabilitiesValue: document.getElementById("reportedLiabilitiesValue"),
   liveEquityValue: document.getElementById("liveEquityValue"),
   coverageRatioValue: document.getElementById("coverageRatioValue"),
+  historyChart: document.getElementById("historyChart"),
+  historySummary: document.getElementById("historySummary"),
   reserveBreakdown: document.getElementById("reserveBreakdown"),
   reportDateLabel: document.getElementById("reportDateLabel"),
   btcDeltaValue: document.getElementById("btcDeltaValue"),
@@ -1088,6 +1344,152 @@ function calculateScenario(prices) {
     equity,
     coverageRatio: assets / REPORT.liabilities,
   };
+}
+
+function buildHistorySeries(liveState) {
+  const officialPoints = HISTORICAL_REPORTS.map((report) => {
+    const equity = report.assets - report.liabilities;
+    return {
+      label: report.label,
+      date: report.date,
+      type: report.sourceType,
+      assets: report.assets,
+      liabilities: report.liabilities,
+      equity,
+      cushionPct: (equity / report.liabilities) * 100,
+      coveragePct: (report.assets / report.liabilities) * 100,
+      note: "Official quarter-end report",
+    };
+  });
+
+  officialPoints.push({
+    label: "Now",
+    date: new Date().toISOString().slice(0, 10),
+    type: "modeled",
+    assets: liveState.assets,
+    liabilities: REPORT.liabilities,
+    equity: liveState.equity,
+    cushionPct: (liveState.equity / REPORT.liabilities) * 100,
+    coveragePct: (liveState.assets / REPORT.liabilities) * 100,
+    note: "Q4 2025 liabilities with BTC and gold re-marked live",
+  });
+
+  return officialPoints;
+}
+
+function formatShortDate(dateString) {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }).format(new Date(`${dateString}T00:00:00Z`));
+}
+
+function renderHistorySummary(series) {
+  dom.historySummary.innerHTML = "";
+
+  series.forEach((point) => {
+    const card = document.createElement("article");
+    card.className = `history-card ${point.type}`;
+    card.innerHTML = `
+      <p class="history-card-label">${point.label}</p>
+      <p class="history-card-date">${formatShortDate(point.date)} | ${
+        point.type === "official" ? "Official" : "Modeled"
+      }</p>
+      <h4 class="history-card-value">${number2.format(point.cushionPct)}%</h4>
+      <p class="history-card-note">Equity / liabilities cushion</p>
+      <p class="history-card-detail">Assets / liabilities: ${number2.format(point.coveragePct)}%</p>
+      <p class="history-card-detail">Equity: ${formatCompactUsd(point.equity)}</p>
+    `;
+    dom.historySummary.appendChild(card);
+  });
+}
+
+function renderHistoryChart(series) {
+  if (!dom.historyChart) {
+    return;
+  }
+
+  const width = 960;
+  const height = 360;
+  const margin = { top: 28, right: 28, bottom: 72, left: 64 };
+  const chartWidth = width - margin.left - margin.right;
+  const chartHeight = height - margin.top - margin.bottom;
+  const threshold = 3;
+  const yValues = [...series.map((point) => point.cushionPct), threshold];
+  const minY = Math.max(0, Math.floor(Math.min(...yValues) * 10) / 10 - 0.2);
+  const maxY = Math.ceil(Math.max(...yValues) * 10) / 10 + 0.2;
+  const xStep = chartWidth / Math.max(1, series.length - 1);
+
+  const scaleY = (value) => margin.top + ((maxY - value) / (maxY - minY)) * chartHeight;
+  const baselineY = margin.top + chartHeight;
+
+  const points = series.map((point, index) => ({
+    ...point,
+    x: margin.left + index * xStep,
+    y: scaleY(point.cushionPct),
+  }));
+
+  const officialPoints = points.filter((point) => point.type === "official");
+  const modeledPoint = points.find((point) => point.type === "modeled");
+  const officialPath = officialPoints
+    .map((point, index) => `${index === 0 ? "M" : "L"} ${point.x.toFixed(2)} ${point.y.toFixed(2)}`)
+    .join(" ");
+  const fullPath = points
+    .map((point, index) => `${index === 0 ? "M" : "L"} ${point.x.toFixed(2)} ${point.y.toFixed(2)}`)
+    .join(" ");
+  const areaPath = `${fullPath} L ${points.at(-1).x.toFixed(2)} ${baselineY.toFixed(2)} L ${points[0].x.toFixed(
+    2,
+  )} ${baselineY.toFixed(2)} Z`;
+
+  const tickCount = 5;
+  const ticks = Array.from({ length: tickCount }, (_, index) => minY + ((maxY - minY) / (tickCount - 1)) * index);
+  const thresholdY = scaleY(threshold);
+
+  dom.historyChart.innerHTML = `
+    <defs>
+      <linearGradient id="historyAreaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="var(--reserve-fill-start)" stop-opacity="0.24"></stop>
+        <stop offset="100%" stop-color="var(--reserve-fill-start)" stop-opacity="0"></stop>
+      </linearGradient>
+    </defs>
+    ${ticks
+      .map(
+        (tick) => `
+          <line class="chart-grid-line" x1="${margin.left}" y1="${scaleY(tick)}" x2="${width - margin.right}" y2="${scaleY(
+            tick,
+          )}"></line>
+          <text class="chart-axis-label" x="${margin.left - 12}" y="${scaleY(tick) + 4}" text-anchor="end">${number2.format(
+            tick,
+          )}%</text>
+        `,
+      )
+      .join("")}
+    <line class="chart-grid-line threshold" x1="${margin.left}" y1="${thresholdY}" x2="${width - margin.right}" y2="${thresholdY}"></line>
+    <text class="chart-threshold-label" x="${width - margin.right}" y="${thresholdY - 8}" text-anchor="end">3.00% alert threshold</text>
+    <line class="chart-axis-line" x1="${margin.left}" y1="${baselineY}" x2="${width - margin.right}" y2="${baselineY}"></line>
+    <path class="chart-area" d="${areaPath}" fill="url(#historyAreaGradient)"></path>
+    <path class="chart-line" d="${officialPath}"></path>
+    <path class="chart-line modeled" d="M ${officialPoints.at(-1).x.toFixed(2)} ${officialPoints
+      .at(-1)
+      .y.toFixed(2)} L ${modeledPoint.x.toFixed(2)} ${modeledPoint.y.toFixed(2)}"></path>
+    ${points
+      .map(
+        (point) => `
+          <circle class="chart-point ${point.type}" cx="${point.x}" cy="${point.y}" r="${point.type === "modeled" ? 7 : 6}"></circle>
+          <text class="chart-point-label" x="${point.x}" y="${point.y - 14}">${number2.format(point.cushionPct)}%</text>
+          <text class="chart-x-label" x="${point.x}" y="${baselineY + 22}">${point.label}</text>
+          <text class="chart-x-label" x="${point.x}" y="${baselineY + 40}">${formatShortDate(point.date)}</text>
+        `,
+      )
+      .join("")}
+  `;
+}
+
+function renderHistory(liveState) {
+  const series = buildHistorySeries(liveState);
+  renderHistoryChart(series);
+  renderHistorySummary(series);
 }
 
 function renderReserveBreakdown() {
@@ -1313,6 +1715,7 @@ function syncControlsToRanges() {
 function renderAll() {
   const liveState = calculateLiveState(state.prices);
   renderHeadlineMetrics(liveState);
+  renderHistory(liveState);
   renderThresholdTable(liveState);
   renderHaircutTable(liveState);
   renderScenario(liveState);
@@ -1377,6 +1780,7 @@ function init() {
 }
 
 init();
-    </script>
+
+</script>
   </body>
 </html>
