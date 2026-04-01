@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tether Reserve Stress Dash</title>
+    <style>
+:root {
+  --bg: #08131a;
+  --panel: rgba(12, 20, 28, 0.78);
+  --panel-strong: rgba(15, 26, 35, 0.94);
+  --ink: #edf2eb;
+  --muted: #96a8a3;
+  --border: rgba(168, 192, 182, 0.14);
+  --line: rgba(168, 192, 182, 0.1);
+  --accent: #78cab6;
+  --accent-soft: #112925;
+  --warm: #dc9b62;
+  --warm-soft: #392517;
+  --danger: #ff8f8f;
+  --success: #80ddb2;
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+  --body-glow-left: rgba(220, 155, 98, 0.2);
+  --body-glow-right: rgba(120, 202, 182, 0.18);
+  --body-glow-bottom: rgba(86, 118, 184, 0.18);
+  --body-base-top: #071117;
+  --body-base-mid: #0b1720;
+  --body-base-bottom: #061016;
+  --panel-top: rgba(20, 32, 42, 0.82);
+  --panel-bottom: rgba(10, 17, 24, 0.9);
+  --hero-sheen: rgba(220, 155, 98, 0.22);
+  --hero-start: rgba(13, 44, 45, 0.96);
+  --hero-end: rgba(9, 24, 35, 0.98);
+  --hero-status: rgba(248, 245, 237, 0.88);
+  --button-border: rgba(220, 155, 98, 0.25);
+  --button-start: rgba(220, 155, 98, 0.96);
+  --button-end: rgba(176, 111, 60, 0.92);
+  --button-text: #1a1009;
+  --emphasis-start: rgba(120, 202, 182, 0.16);
+  --emphasis-end: rgba(16, 28, 36, 0.94);
+  --reserve-track: rgba(120, 202, 182, 0.12);
+  --reserve-fill-start: rgba(120, 202, 182, 0.96);
+  --reserve-fill-end: rgba(67, 142, 181, 0.86);
+  --delta-top: rgba(17, 29, 39, 0.96);
+  --delta-bottom: rgba(12, 21, 28, 0.96);
+  --status-top: rgba(220, 155, 98, 0.16);
+  --status-bottom: rgba(18, 25, 31, 0.96);
+  --input-bg: rgba(6, 13, 18, 0.82);
+  --link-hover: #a8ebda;
+  --theme-switch-bg: rgba(10, 17, 24, 0.72);
+  --theme-button-text: var(--muted);
+  --theme-button-hover: rgba(255, 255, 255, 0.06);
+  --theme-button-active-start: rgba(120, 202, 182, 0.98);
+  --theme-button-active-end: rgba(67, 142, 181, 0.86);
+  --theme-button-active-text: #051319;
+}
+
+body[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f3efe4;
+  --panel: rgba(255, 252, 244, 0.88);
+  --panel-strong: rgba(248, 243, 231, 0.96);
+  --ink: #1d261f;
+  --muted: #596359;
+  --border: rgba(29, 38, 31, 0.12);
+  --line: rgba(29, 38, 31, 0.08);
+  --accent: #1f5d50;
+  --accent-soft: #dceee8;
+  --warm: #b4683c;
+  --warm-soft: #f4ddcb;
+  --danger: #a73f3f;
+  --success: #1c6b4e;
+  --shadow: 0 22px 60px rgba(53, 49, 40, 0.12);
+  --body-glow-left: rgba(180, 104, 60, 0.16);
+  --body-glow-right: rgba(31, 93, 80, 0.14);
+  --body-glow-bottom: rgba(86, 118, 184, 0.08);
+  --body-base-top: #f5f1e8;
+  --body-base-mid: #f0ebdf;
+  --body-base-bottom: #ece5d6;
+  --panel-top: rgba(255, 250, 242, 0.9);
+  --panel-bottom: rgba(244, 237, 225, 0.92);
+  --hero-sheen: rgba(245, 208, 166, 0.2);
+  --hero-start: rgba(31, 93, 80, 0.92);
+  --hero-end: rgba(24, 49, 43, 0.96);
+  --hero-status: rgba(248, 245, 237, 0.88);
+  --button-border: rgba(180, 104, 60, 0.2);
+  --button-start: #f5d0a6;
+  --button-end: #e7b57b;
+  --button-text: #302215;
+  --emphasis-start: rgba(31, 93, 80, 0.08);
+  --emphasis-end: rgba(255, 252, 244, 0.92);
+  --reserve-track: rgba(31, 93, 80, 0.08);
+  --reserve-fill-start: rgba(31, 93, 80, 0.92);
+  --reserve-fill-end: rgba(50, 126, 113, 0.82);
+  --delta-top: rgba(255, 252, 244, 0.98);
+  --delta-bottom: rgba(248, 243, 231, 0.96);
+  --status-top: rgba(180, 104, 60, 0.08);
+  --status-bottom: rgba(255, 252, 244, 0.96);
+  --input-bg: rgba(255, 255, 255, 0.6);
+  --link-hover: #15453b;
+  --theme-switch-bg: rgba(255, 252, 244, 0.88);
+  --theme-button-text: #596359;
+  --theme-button-hover: rgba(29, 38, 31, 0.06);
+  --theme-button-active-start: rgba(31, 93, 80, 0.92);
+  --theme-button-active-end: rgba(50, 126, 113, 0.82);
+  --theme-button-active-text: #f6f2e8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  color-scheme: dark;
+  background:
+    radial-gradient(circle at top left, var(--body-glow-left), transparent 28%),
+    radial-gradient(circle at top right, var(--body-glow-right), transparent 24%),
+    radial-gradient(circle at 50% 120%, var(--body-glow-bottom), transparent 30%),
+    linear-gradient(180deg, var(--body-base-top) 0%, var(--body-base-mid) 52%, var(--body-base-bottom) 100%);
+  color: var(--ink);
+  font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+  transition:
+    background 180ms ease,
+    color 180ms ease;
+}
+
+.page-shell {
+  width: min(1240px, calc(100vw - 32px));
+  margin: 32px auto 48px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 14px;
+}
+
+.theme-switch {
+  display: inline-flex;
+  gap: 6px;
+  padding: 6px;
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, var(--panel-top), var(--panel-bottom)),
+    var(--theme-switch-bg);
+  box-shadow: var(--shadow);
+}
+
+.theme-button {
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 16px;
+  background: transparent;
+  color: var(--theme-button-text);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.theme-button:hover {
+  background: var(--theme-button-hover);
+}
+
+.theme-button.is-active {
+  background: linear-gradient(135deg, var(--theme-button-active-start), var(--theme-button-active-end));
+  color: var(--theme-button-active-text);
+}
+
+.panel {
+  background:
+    linear-gradient(180deg, var(--panel-top), var(--panel-bottom)),
+    var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.9fr) minmax(280px, 0.9fr);
+  gap: 24px;
+  padding: 32px;
+}
+
+.eyebrow,
+.section-kicker {
+  margin: 0 0 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+  font-weight: 700;
+  line-height: 1.02;
+}
+
+h1 {
+  font-size: clamp(2.6rem, 4vw, 4.6rem);
+  letter-spacing: -0.03em;
+}
+
+h2 {
+  font-size: clamp(2rem, 2vw, 2.6rem);
+}
+
+h3 {
+  font-size: 1.75rem;
+  letter-spacing: -0.02em;
+}
+
+h4 {
+  font-size: 1.55rem;
+  letter-spacing: -0.02em;
+}
+
+.hero-text,
+.section-note,
+.metric-footnote,
+.delta-footnote,
+.control-note,
+.price-status,
+li,
+th,
+td,
+label,
+.metric-label,
+.delta-label {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.hero-text,
+.section-note,
+.metric-footnote,
+.delta-footnote,
+.control-note,
+.price-status,
+.metric-label,
+.delta-label {
+  color: var(--muted);
+}
+
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at top right, var(--hero-sheen), transparent 42%),
+    linear-gradient(135deg, var(--hero-start), var(--hero-end));
+  color: #f6f2e8;
+}
+
+.action-button {
+  align-self: flex-start;
+  padding: 12px 18px;
+  border: 1px solid var(--button-border);
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--button-start), var(--button-end));
+  color: var(--button-text);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+.action-button:hover {
+  transform: translateY(-1px);
+}
+
+.hero-actions .price-status {
+  color: var(--hero-status);
+  margin: 0;
+}
+
+.metrics-grid,
+.two-column,
+.scenario-grid,
+.delta-grid,
+.notes-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.metrics-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 18px;
+}
+
+.metric-card,
+.delta-card {
+  padding: 24px;
+}
+
+.metric-card.emphasis {
+  background: linear-gradient(180deg, var(--emphasis-start), var(--emphasis-end));
+}
+
+.two-column {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 18px;
+}
+
+.two-column > .panel,
+.notes-panel,
+.panel + .panel,
+section.panel {
+  padding: 28px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 22px;
+}
+
+.section-note {
+  margin: 0;
+  max-width: 340px;
+  text-align: right;
+}
+
+.reserve-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.reserve-row {
+  display: grid;
+  grid-template-columns: minmax(210px, 1.4fr) 1.2fr auto;
+  gap: 14px;
+  align-items: center;
+}
+
+.reserve-label-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.reserve-label {
+  font-weight: 700;
+}
+
+.reserve-detail {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.reserve-bar {
+  position: relative;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--reserve-track);
+  overflow: hidden;
+}
+
+.reserve-bar > span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--reserve-fill-start), var(--reserve-fill-end));
+}
+
+.reserve-value {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.delta-grid,
+.scenario-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.delta-card {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, var(--delta-top), var(--delta-bottom)),
+    var(--panel-strong);
+}
+
+.delta-label {
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.delta-footnote {
+  margin: 8px 0 0;
+}
+
+.status-card {
+  background: linear-gradient(180deg, var(--status-top), var(--status-bottom));
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 880px;
+}
+
+th,
+td {
+  padding: 14px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+th {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+td {
+  font-variant-numeric: tabular-nums;
+}
+
+.danger-text {
+  color: var(--danger);
+}
+
+.success-text {
+  color: var(--success);
+}
+
+.control-group + .control-group {
+  margin-top: 26px;
+}
+
+.control-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.price-input {
+  width: 180px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--input-bg);
+  color: var(--ink);
+  font: inherit;
+}
+
+.price-input::placeholder {
+  color: var(--muted);
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.control-note {
+  margin: 10px 0 0;
+}
+
+.notes-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.notes-grid h4 {
+  margin-bottom: 14px;
+}
+
+ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+li + li {
+  margin-top: 8px;
+}
+
+a {
+  color: var(--accent);
+}
+
+a:hover {
+  color: var(--link-hover);
+}
+
+@media (max-width: 1024px) {
+  .hero,
+  .metrics-grid,
+  .two-column,
+  .delta-grid,
+  .scenario-grid,
+  .notes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-header {
+    flex-direction: column;
+  }
+
+  .section-note {
+    text-align: left;
+    max-width: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .page-shell {
+    width: min(100vw - 20px, 1240px);
+    margin: 12px auto 28px;
+  }
+
+  .topbar {
+    margin-bottom: 10px;
+  }
+
+  .hero,
+  .two-column > .panel,
+  section.panel,
+  .notes-panel,
+  .metric-card,
+  .delta-card {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 2.35rem;
+  }
+
+  .reserve-row {
+    grid-template-columns: 1fr;
+  }
+
+  .price-input {
+    width: 140px;
+  }
+}
+    </style>
+  </head>
+  <body>
+    <div class="page-shell">
+      <div class="topbar">
+        <div class="theme-switch" role="group" aria-label="Theme switcher">
+          <button class="theme-button" type="button" data-theme-value="light" aria-pressed="false">
+            Light
+          </button>
+          <button class="theme-button" type="button" data-theme-value="dark" aria-pressed="false">
+            Dark
+          </button>
+        </div>
+      </div>
+      <header class="hero panel">
+        <div class="hero-copy">
+          <p class="eyebrow">Reserve stress dashboard</p>
+          <h1>Tether Reserve Stress Dash</h1>
+          <p class="hero-text">
+            Uses the latest official Tether reserve report currently published on
+            Tether.io, the Q4 2025 attestation released on January 30, 2026, plus
+            live BTC and gold prices to estimate when Tether's liabilities would
+            overtake assets if one marked asset moved while the rest stayed flat.
+          </p>
+        </div>
+        <div class="hero-actions">
+          <button id="refreshButton" class="action-button">Refresh live prices</button>
+          <p id="priceStatus" class="price-status">Loading BTC and gold prices...</p>
+        </div>
+      </header>
+
+      <section class="metrics-grid">
+        <article class="metric-card panel">
+          <p class="metric-label">Reported assets</p>
+          <h2 id="reportedAssetsValue">$0</h2>
+          <p class="metric-footnote">Official reserve total at 2025-12-31</p>
+        </article>
+        <article class="metric-card panel">
+          <p class="metric-label">Reported liabilities</p>
+          <h2 id="reportedLiabilitiesValue">$0</h2>
+          <p class="metric-footnote">Fiat-token liabilities plus other liabilities</p>
+        </article>
+        <article class="metric-card panel emphasis">
+          <p class="metric-label">Estimated equity now</p>
+          <h2 id="liveEquityValue">$0</h2>
+          <p class="metric-footnote">Reported equity, re-marked for BTC and gold</p>
+        </article>
+        <article class="metric-card panel">
+          <p class="metric-label">Equity cushion / liabilities</p>
+          <h2 id="coverageRatioValue">0.00%</h2>
+          <p class="metric-footnote">Estimated equity as a share of liabilities</p>
+        </article>
+      </section>
+
+      <section class="two-column">
+        <article class="panel">
+          <div class="section-header">
+            <div>
+              <p class="section-kicker">Reserve mix</p>
+              <h3>Official reserve breakdown</h3>
+            </div>
+            <p id="reportDateLabel" class="section-note"></p>
+          </div>
+          <div id="reserveBreakdown" class="reserve-breakdown"></div>
+        </article>
+
+        <article class="panel">
+          <div class="section-header">
+            <div>
+              <p class="section-kicker">Marked-to-market</p>
+              <h3>What changed since the report</h3>
+            </div>
+            <p class="section-note">Only BTC and gold are re-marked live</p>
+          </div>
+          <div class="delta-grid">
+            <div class="delta-card">
+              <p class="delta-label">BTC contribution to equity delta</p>
+              <h4 id="btcDeltaValue">$0</h4>
+              <p id="btcLivePrice" class="delta-footnote"></p>
+            </div>
+            <div class="delta-card">
+              <p class="delta-label">Gold contribution to equity delta</p>
+              <h4 id="goldDeltaValue">$0</h4>
+              <p id="goldLivePrice" class="delta-footnote"></p>
+            </div>
+            <div class="delta-card">
+              <p class="delta-label">Estimated live assets</p>
+              <h4 id="liveAssetsValue">$0</h4>
+              <p class="delta-footnote">Reported assets plus live price deltas</p>
+            </div>
+            <div class="delta-card">
+              <p class="delta-label">Headroom over liabilities</p>
+              <h4 id="headroomValue">$0</h4>
+              <p class="delta-footnote">Positive means modeled solvency remains</p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel">
+        <div class="section-header">
+          <div>
+            <p class="section-kicker">Thresholds</p>
+            <h3>Asset prices that erase the equity cushion</h3>
+          </div>
+          <p class="section-note">
+            Assumes one priced asset moves and everything else stays at current modeled levels
+          </p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Asset</th>
+                <th>Implied units held</th>
+                <th>Live price</th>
+                <th>Modeled live value</th>
+                <th>Breach price</th>
+                <th>Drop from live</th>
+                <th>Equity if asset = 0</th>
+              </tr>
+            </thead>
+            <tbody id="thresholdTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="two-column">
+        <article class="panel">
+          <div class="section-header">
+            <div>
+              <p class="section-kicker">Scenario lab</p>
+              <h3>Move BTC and gold yourself</h3>
+            </div>
+            <p class="section-note">Use either the sliders or the number fields</p>
+          </div>
+
+          <div class="control-group">
+            <div class="control-header">
+              <label for="btcRange">Bitcoin</label>
+              <input id="btcInput" class="price-input" type="number" min="0" step="100" />
+            </div>
+            <input id="btcRange" type="range" min="0" max="150000" step="100" />
+            <p id="btcThresholdHint" class="control-note"></p>
+          </div>
+
+          <div class="control-group">
+            <div class="control-header">
+              <label for="goldRange">Gold</label>
+              <input id="goldInput" class="price-input" type="number" min="0" step="1" />
+            </div>
+            <input id="goldRange" type="range" min="0" max="7000" step="1" />
+            <p id="goldThresholdHint" class="control-note"></p>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="section-header">
+            <div>
+              <p class="section-kicker">Scenario output</p>
+              <h3>Modeled balance sheet under your prices</h3>
+            </div>
+            <p class="section-note">Non-priced reserve buckets stay fixed</p>
+          </div>
+          <div class="scenario-grid">
+            <div class="delta-card">
+              <p class="delta-label">Modeled assets</p>
+              <h4 id="scenarioAssetsValue">$0</h4>
+              <p class="delta-footnote">After applying your BTC and gold marks</p>
+            </div>
+            <div class="delta-card">
+              <p class="delta-label">Modeled equity</p>
+              <h4 id="scenarioEquityValue">$0</h4>
+              <p class="delta-footnote">Assets minus fixed liabilities</p>
+            </div>
+            <div class="delta-card">
+              <p class="delta-label">Equity cushion / liabilities</p>
+              <h4 id="scenarioCoverageValue">0.00%</h4>
+              <p class="delta-footnote">Modeled equity as a share of liabilities</p>
+            </div>
+            <div class="delta-card status-card">
+              <p class="delta-label">Status</p>
+              <h4 id="scenarioStatusValue">Stable</h4>
+              <p id="scenarioStatusNote" class="delta-footnote"></p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel">
+        <div class="section-header">
+          <div>
+            <p class="section-kicker">Buckets without unit disclosure</p>
+            <h3>How large a write-down would be needed</h3>
+          </div>
+          <p class="section-note">
+            Tether does not disclose enough public position detail to translate these into a single market price
+          </p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Bucket</th>
+                <th>Reported value</th>
+                <th>Haircut needed to erase current equity</th>
+                <th>Could this bucket alone push assets below liabilities?</th>
+              </tr>
+            </thead>
+            <tbody id="haircutTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel notes-panel">
+        <div class="section-header">
+          <div>
+            <p class="section-kicker">Model notes</p>
+            <h3>Assumptions and source links</h3>
+          </div>
+        </div>
+        <div class="notes-grid">
+          <div>
+            <h4>Assumptions</h4>
+            <ul>
+              <li>Liabilities stay fixed at the official December 31, 2025 reported amount.</li>
+              <li>BTC units are implied from Tether's disclosed BTC value and BTC price in the report.</li>
+              <li>Gold ounces are implied from Tether's disclosed gold value and the December 31, 2025 XAU close used as a proxy.</li>
+              <li>Everything outside BTC and gold remains marked at reported values unless you move it via the haircut table mentally.</li>
+              <li>No newer official reserve report was listed on Tether's Data page when this dashboard was updated.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Sources</h4>
+            <ul>
+              <li>
+                <a href="https://tether.io/data" target="_blank" rel="noreferrer">Tether Data page, which currently lists the latest official reserve report</a>
+              </li>
+              <li>
+                <a href="https://tether.io/news/tether-delivers-10b-profits-in-2025-6-3b-in-excess-reserves-and-record-141-billion-exposure-in-u-s-treasury-holdings/" target="_blank" rel="noreferrer">Tether Q4 2025 attestation release, published January 30, 2026</a>
+              </li>
+              <li>
+                <a href="https://assets.ctfassets.net/vyse88cgwfbl/20d2BoOAd28ZfkiQPYPjGN/4ed12f5939e1e06ee5aceccad4effbe4/ISAE_3000R_-_Opinion_Tether_International_Financial_Figure_31-12-2025.pdf" target="_blank" rel="noreferrer">Tether Financial Figures &amp; Reserves Report, December 31, 2025</a>
+              </li>
+              <li>
+                <a href="https://api.gold-api.com/price/BTC" target="_blank" rel="noreferrer">Live BTC price feed</a>
+              </li>
+              <li>
+                <a href="https://api.gold-api.com/price/XAU" target="_blank" rel="noreferrer">Live XAU price feed</a>
+              </li>
+              <li>
+                <a href="https://www.statmuse.com/money/ask/gold-price-on-dec-31-year-2025" target="_blank" rel="noreferrer">December 31, 2025 gold close proxy used for implied ounces</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+const REPORT = {
+  reportLabel: "Latest official Tether reserve report currently published",
+  reportDate: "2025-12-31",
+  publicationDate: "2026-01-30",
+  assets: 192_877_729_144,
+  liabilities: 186_539_895_593,
+  equity: 6_337_833_551,
+  reserveBuckets: [
+    {
+      name: "U.S. Treasury Bills",
+      value: 122_325_714_946,
+      detail: "63.42% of reported reserves",
+    },
+    {
+      name: "Overnight Reverse Repo",
+      value: 19_279_408_559,
+      detail: "Collateralized by U.S. Treasuries",
+    },
+    {
+      name: "Precious metals",
+      value: 17_450_435_088,
+      detail: "LBMA standard physical gold bars",
+    },
+    {
+      name: "Secured loans",
+      value: 17_043_516_665,
+      detail: "Over-collateralized by liquid assets",
+    },
+    {
+      name: "Bitcoin",
+      value: 8_430_374_292,
+      detail: "On-chain wallets controlled by Tether",
+    },
+    {
+      name: "Term Reverse Repo",
+      value: 5_548_439_332,
+      detail: "Residual average maturity under 90 days",
+    },
+    {
+      name: "Other investments",
+      value: 2_762_856_288,
+      detail: "Not disclosed in public detail",
+    },
+    {
+      name: "Corporate bonds",
+      value: 3_031_239,
+      detail: "Residual average maturity over 360 days",
+    },
+    {
+      name: "Cash & bank deposits",
+      value: 33_952_735,
+      detail: "Cash at financial institutions",
+    },
+  ],
+};
+
+const PRICED_EXPOSURES = {
+  BTC: {
+    label: "Bitcoin",
+    reportValue: 8_430_374_292,
+    reportPrice: 87_647.54,
+    liveEndpoint: "https://api.gold-api.com/price/BTC",
+    fallbackPrice: 67_998.59375,
+    fallbackUpdatedAt: "2026-03-30T13:29:10Z",
+    unitLabel: "BTC",
+  },
+  XAU: {
+    label: "Physical gold",
+    reportValue: 17_450_435_088,
+    reportPrice: 4_315.13,
+    liveEndpoint: "https://api.gold-api.com/price/XAU",
+    fallbackPrice: 4_569.899902,
+    fallbackUpdatedAt: "2026-03-30T13:29:09Z",
+    unitLabel: "oz",
+  },
+};
+
+const HAIRCUT_BUCKETS = [
+  { name: "U.S. Treasury Bills", value: 122_325_714_946 },
+  { name: "Overnight Reverse Repo", value: 19_279_408_559 },
+  { name: "Term Reverse Repo", value: 5_548_439_332 },
+  { name: "Secured loans", value: 17_043_516_665 },
+  { name: "Other investments", value: 2_762_856_288 },
+  { name: "Corporate bonds", value: 3_031_239 },
+  { name: "Cash & bank deposits", value: 33_952_735 },
+];
+
+Object.values(PRICED_EXPOSURES).forEach((exposure) => {
+  exposure.units = exposure.reportValue / exposure.reportPrice;
+});
+
+const state = {
+  theme: "dark",
+  prices: {
+    BTC: {
+      price: PRICED_EXPOSURES.BTC.fallbackPrice,
+      updatedAt: PRICED_EXPOSURES.BTC.fallbackUpdatedAt,
+      source: "fallback",
+    },
+    XAU: {
+      price: PRICED_EXPOSURES.XAU.fallbackPrice,
+      updatedAt: PRICED_EXPOSURES.XAU.fallbackUpdatedAt,
+      source: "fallback",
+    },
+  },
+};
+
+const currency0 = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 0,
+});
+
+const currency2 = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
+const percent2 = new Intl.NumberFormat("en-US", {
+  style: "percent",
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
+const number0 = new Intl.NumberFormat("en-US", {
+  maximumFractionDigits: 0,
+});
+
+const number2 = new Intl.NumberFormat("en-US", {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
+const dom = {
+  reportedAssetsValue: document.getElementById("reportedAssetsValue"),
+  reportedLiabilitiesValue: document.getElementById("reportedLiabilitiesValue"),
+  liveEquityValue: document.getElementById("liveEquityValue"),
+  coverageRatioValue: document.getElementById("coverageRatioValue"),
+  reserveBreakdown: document.getElementById("reserveBreakdown"),
+  reportDateLabel: document.getElementById("reportDateLabel"),
+  btcDeltaValue: document.getElementById("btcDeltaValue"),
+  goldDeltaValue: document.getElementById("goldDeltaValue"),
+  btcLivePrice: document.getElementById("btcLivePrice"),
+  goldLivePrice: document.getElementById("goldLivePrice"),
+  liveAssetsValue: document.getElementById("liveAssetsValue"),
+  headroomValue: document.getElementById("headroomValue"),
+  thresholdTableBody: document.getElementById("thresholdTableBody"),
+  haircutTableBody: document.getElementById("haircutTableBody"),
+  priceStatus: document.getElementById("priceStatus"),
+  themeButtons: document.querySelectorAll("[data-theme-value]"),
+  refreshButton: document.getElementById("refreshButton"),
+  btcRange: document.getElementById("btcRange"),
+  btcInput: document.getElementById("btcInput"),
+  goldRange: document.getElementById("goldRange"),
+  goldInput: document.getElementById("goldInput"),
+  btcThresholdHint: document.getElementById("btcThresholdHint"),
+  goldThresholdHint: document.getElementById("goldThresholdHint"),
+  scenarioAssetsValue: document.getElementById("scenarioAssetsValue"),
+  scenarioEquityValue: document.getElementById("scenarioEquityValue"),
+  scenarioCoverageValue: document.getElementById("scenarioCoverageValue"),
+  scenarioStatusValue: document.getElementById("scenarioStatusValue"),
+  scenarioStatusNote: document.getElementById("scenarioStatusNote"),
+};
+
+const THEME_STORAGE_KEY = "tether-reserve-stress-theme";
+
+function formatUsd(value, digits = 0) {
+  return digits === 0 ? currency0.format(value) : currency2.format(value);
+}
+
+function formatCompactUsd(value) {
+  const abs = Math.abs(value);
+  if (abs >= 1_000_000_000) {
+    return `${value < 0 ? "-" : ""}${currency2.format(abs / 1_000_000_000).replace("$", "$")}B`;
+  }
+  if (abs >= 1_000_000) {
+    return `${value < 0 ? "-" : ""}${currency2.format(abs / 1_000_000).replace("$", "$")}M`;
+  }
+  return formatUsd(value);
+}
+
+function formatUnitCount(value, unitLabel) {
+  if (unitLabel === "BTC") {
+    return `${number2.format(value)} BTC`;
+  }
+  return `${number0.format(value)} oz`;
+}
+
+function calculateLiveState(prices) {
+  const btcLiveValue = PRICED_EXPOSURES.BTC.units * prices.BTC.price;
+  const goldLiveValue = PRICED_EXPOSURES.XAU.units * prices.XAU.price;
+  const btcDelta = btcLiveValue - PRICED_EXPOSURES.BTC.reportValue;
+  const goldDelta = goldLiveValue - PRICED_EXPOSURES.XAU.reportValue;
+  const assets = REPORT.assets + btcDelta + goldDelta;
+  const equity = assets - REPORT.liabilities;
+
+  return {
+    assets,
+    equity,
+    coverageRatio: assets / REPORT.liabilities,
+    btcLiveValue,
+    goldLiveValue,
+    btcDelta,
+    goldDelta,
+  };
+}
+
+function calculateThreshold(currentPrice, units, equity) {
+  if (equity <= 0) {
+    return {
+      breached: true,
+      thresholdPrice: currentPrice,
+      dropPct: 0,
+      equityAtZero: equity - currentPrice * units,
+    };
+  }
+
+  const thresholdPrice = currentPrice - equity / units;
+  const equityAtZero = equity - currentPrice * units;
+
+  if (thresholdPrice <= 0) {
+    return {
+      breached: false,
+      thresholdPrice: 0,
+      dropPct: 1,
+      equityAtZero,
+      noPositiveThreshold: true,
+    };
+  }
+
+  return {
+    breached: false,
+    thresholdPrice,
+    dropPct: 1 - thresholdPrice / currentPrice,
+    equityAtZero,
+    noPositiveThreshold: false,
+  };
+}
+
+function calculateScenario(prices) {
+  const btcValue = PRICED_EXPOSURES.BTC.units * prices.BTC;
+  const goldValue = PRICED_EXPOSURES.XAU.units * prices.XAU;
+  const assets =
+    REPORT.assets -
+    PRICED_EXPOSURES.BTC.reportValue -
+    PRICED_EXPOSURES.XAU.reportValue +
+    btcValue +
+    goldValue;
+  const equity = assets - REPORT.liabilities;
+
+  return {
+    assets,
+    equity,
+    coverageRatio: assets / REPORT.liabilities,
+  };
+}
+
+function renderReserveBreakdown() {
+  dom.reserveBreakdown.innerHTML = "";
+
+  REPORT.reserveBuckets.forEach((bucket) => {
+    const percentage = bucket.value / REPORT.assets;
+    const row = document.createElement("div");
+    row.className = "reserve-row";
+    row.innerHTML = `
+      <div class="reserve-label-wrap">
+        <span class="reserve-label">${bucket.name}</span>
+        <span class="reserve-detail">${bucket.detail}</span>
+      </div>
+      <div class="reserve-bar"><span style="width:${(percentage * 100).toFixed(2)}%"></span></div>
+      <div class="reserve-value">${formatCompactUsd(bucket.value)} <span class="reserve-detail">(${percent2.format(percentage)})</span></div>
+    `;
+    dom.reserveBreakdown.appendChild(row);
+  });
+}
+
+function renderHaircutTable(liveState) {
+  dom.haircutTableBody.innerHTML = "";
+
+  HAIRCUT_BUCKETS.forEach((bucket) => {
+    const requiredHaircut = liveState.equity / bucket.value;
+    const couldBreach = bucket.value > liveState.equity;
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${bucket.name}</td>
+      <td>${formatCompactUsd(bucket.value)}</td>
+      <td>${couldBreach ? percent2.format(requiredHaircut) : ">100%"}</td>
+      <td class="${couldBreach ? "danger-text" : "success-text"}">
+        ${couldBreach ? "Yes, if that bucket were impaired enough" : "No, even a full write-down would still leave equity"}
+      </td>
+    `;
+    dom.haircutTableBody.appendChild(row);
+  });
+}
+
+function renderThresholdTable(liveState) {
+  dom.thresholdTableBody.innerHTML = "";
+
+  ["BTC", "XAU"].forEach((symbol) => {
+    const exposure = PRICED_EXPOSURES[symbol];
+    const livePrice = state.prices[symbol].price;
+    const liveValue = exposure.units * livePrice;
+    const threshold = calculateThreshold(livePrice, exposure.units, liveState.equity);
+    const dropLabel = threshold.noPositiveThreshold
+      ? "More than 100%"
+      : `${formatUsd(livePrice - threshold.thresholdPrice, 2)} (${percent2.format(threshold.dropPct)})`;
+
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${exposure.label}</td>
+      <td>${formatUnitCount(exposure.units, exposure.unitLabel)}</td>
+      <td>${formatUsd(livePrice, 2)}</td>
+      <td>${formatCompactUsd(liveValue)}</td>
+      <td>${threshold.noPositiveThreshold ? "No positive breach price" : formatUsd(threshold.thresholdPrice, 2)}</td>
+      <td>${dropLabel}</td>
+      <td class="${threshold.equityAtZero < 0 ? "danger-text" : "success-text"}">${formatCompactUsd(threshold.equityAtZero)}</td>
+    `;
+    dom.thresholdTableBody.appendChild(row);
+  });
+}
+
+function renderHeadlineMetrics(liveState) {
+  dom.reportedAssetsValue.textContent = formatCompactUsd(REPORT.assets);
+  dom.reportedLiabilitiesValue.textContent = formatCompactUsd(REPORT.liabilities);
+  dom.liveEquityValue.textContent = formatCompactUsd(liveState.equity);
+  dom.liveEquityValue.className = liveState.equity >= 0 ? "" : "danger-text";
+  dom.coverageRatioValue.textContent = percent2.format(liveState.equity / REPORT.liabilities);
+
+  dom.reportDateLabel.textContent = `${REPORT.reportLabel}: Q4 2025 | as of ${REPORT.reportDate} | published ${REPORT.publicationDate}`;
+  dom.btcDeltaValue.textContent = formatCompactUsd(liveState.btcDelta);
+  dom.goldDeltaValue.textContent = formatCompactUsd(liveState.goldDelta);
+  dom.liveAssetsValue.textContent = formatCompactUsd(liveState.assets);
+  dom.headroomValue.textContent = formatCompactUsd(liveState.equity);
+
+  dom.btcDeltaValue.className = liveState.btcDelta >= 0 ? "success-text" : "danger-text";
+  dom.goldDeltaValue.className = liveState.goldDelta >= 0 ? "success-text" : "danger-text";
+  dom.headroomValue.className = liveState.equity >= 0 ? "success-text" : "danger-text";
+
+  dom.btcLivePrice.textContent = `${formatUsd(state.prices.BTC.price, 2)} | updated ${formatDateTime(state.prices.BTC.updatedAt)}`;
+  dom.goldLivePrice.textContent = `${formatUsd(state.prices.XAU.price, 2)} | updated ${formatDateTime(state.prices.XAU.updatedAt)}`;
+}
+
+function renderScenario(liveState) {
+  const btcThreshold = calculateThreshold(state.prices.BTC.price, PRICED_EXPOSURES.BTC.units, liveState.equity);
+  const goldThreshold = calculateThreshold(state.prices.XAU.price, PRICED_EXPOSURES.XAU.units, liveState.equity);
+
+  dom.btcRange.value = String(Math.round(state.prices.BTC.price));
+  dom.btcInput.value = state.prices.BTC.price.toFixed(2);
+  dom.goldRange.value = String(Math.round(state.prices.XAU.price));
+  dom.goldInput.value = state.prices.XAU.price.toFixed(2);
+
+  dom.btcThresholdHint.textContent = btcThreshold.noPositiveThreshold
+    ? "BTC alone cannot erase the cushion before hitting zero in this model."
+    : `Modeled breach price: ${formatUsd(btcThreshold.thresholdPrice, 2)}`;
+  dom.goldThresholdHint.textContent = goldThreshold.noPositiveThreshold
+    ? "Gold alone cannot erase the cushion before hitting zero in this model."
+    : `Modeled breach price: ${formatUsd(goldThreshold.thresholdPrice, 2)}`;
+
+  updateScenarioOutput();
+}
+
+function updateScenarioOutput() {
+  const scenario = calculateScenario({
+    BTC: Number(dom.btcInput.value),
+    XAU: Number(dom.goldInput.value),
+  });
+
+  dom.scenarioAssetsValue.textContent = formatCompactUsd(scenario.assets);
+  dom.scenarioEquityValue.textContent = formatCompactUsd(scenario.equity);
+  dom.scenarioEquityValue.className = scenario.equity >= 0 ? "success-text" : "danger-text";
+  dom.scenarioCoverageValue.textContent = percent2.format(scenario.equity / REPORT.liabilities);
+
+  if (scenario.equity >= 0) {
+    dom.scenarioStatusValue.textContent = "Assets still cover liabilities";
+    dom.scenarioStatusValue.className = "success-text";
+    dom.scenarioStatusNote.textContent = `${formatCompactUsd(scenario.equity)} of modeled equity remains.`;
+  } else {
+    dom.scenarioStatusValue.textContent = "Liabilities exceed assets";
+    dom.scenarioStatusValue.className = "danger-text";
+    dom.scenarioStatusNote.textContent = `${formatCompactUsd(Math.abs(scenario.equity))} of modeled deficit.`;
+  }
+}
+
+function formatDateTime(value) {
+  if (!value) {
+    return "unknown";
+  }
+
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    timeZoneName: "short",
+  }).format(new Date(value));
+}
+
+function getInitialTheme() {
+  try {
+    const storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+    if (storedTheme === "light" || storedTheme === "dark") {
+      return storedTheme;
+    }
+  } catch (_error) {
+    // Ignore storage access issues and fall back to the default theme.
+  }
+
+  return "dark";
+}
+
+function applyTheme(theme) {
+  state.theme = theme === "light" ? "light" : "dark";
+  document.body.dataset.theme = state.theme;
+
+  dom.themeButtons.forEach((button) => {
+    const isActive = button.dataset.themeValue === state.theme;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
+
+  try {
+    window.localStorage.setItem(THEME_STORAGE_KEY, state.theme);
+  } catch (_error) {
+    // Ignore storage failures without blocking the dashboard.
+  }
+}
+
+async function fetchPrice(symbol) {
+  const response = await fetch(PRICED_EXPOSURES[symbol].liveEndpoint, {
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+
+  const data = await response.json();
+  return {
+    price: data.price,
+    updatedAt: data.updatedAt,
+    source: "live",
+  };
+}
+
+async function loadLivePrices() {
+  dom.priceStatus.textContent = "Refreshing BTC and gold marks...";
+
+  const results = await Promise.allSettled(["BTC", "XAU"].map(fetchPrice));
+
+  results.forEach((result, index) => {
+    const symbol = index === 0 ? "BTC" : "XAU";
+    if (result.status === "fulfilled") {
+      state.prices[symbol] = result.value;
+    }
+  });
+
+  const liveCount = results.filter((result) => result.status === "fulfilled").length;
+  if (liveCount === results.length) {
+    dom.priceStatus.textContent = `Live prices loaded. BTC and gold updated ${formatDateTime(
+      state.prices.BTC.updatedAt,
+    )}.`;
+  } else if (liveCount > 0) {
+    dom.priceStatus.textContent = "Some live prices loaded. Missing endpoints fell back to the March 30, 2026 snapshot.";
+  } else {
+    dom.priceStatus.textContent = "Live fetch failed. Using the March 30, 2026 fallback snapshot.";
+  }
+
+  syncControlsToRanges();
+  renderAll();
+}
+
+function syncControlsToRanges() {
+  dom.btcRange.max = String(Math.max(150_000, Math.ceil(state.prices.BTC.price * 1.75 / 100) * 100));
+  dom.goldRange.max = String(Math.max(7_000, Math.ceil(state.prices.XAU.price * 1.75)));
+}
+
+function renderAll() {
+  const liveState = calculateLiveState(state.prices);
+  renderHeadlineMetrics(liveState);
+  renderThresholdTable(liveState);
+  renderHaircutTable(liveState);
+  renderScenario(liveState);
+}
+
+function bindScenarioControls() {
+  const bindings = [
+    { range: dom.btcRange, input: dom.btcInput },
+    { range: dom.goldRange, input: dom.goldInput },
+  ];
+
+  bindings.forEach(({ range, input }) => {
+    range.addEventListener("input", () => {
+      input.value = range.value;
+      updateScenarioOutput();
+    });
+
+    input.addEventListener("input", () => {
+      const numericValue = Math.max(0, Number(input.value || 0));
+      const cappedValue = Math.min(Number(range.max), numericValue);
+      range.value = String(cappedValue);
+      updateScenarioOutput();
+    });
+
+    input.addEventListener("change", () => {
+      const numericValue = Math.max(0, Number(input.value || 0));
+      const cappedValue = Math.min(Number(range.max), numericValue);
+      range.value = String(cappedValue);
+      input.value = cappedValue.toFixed(2);
+      updateScenarioOutput();
+    });
+  });
+
+  dom.refreshButton.addEventListener("click", () => {
+    loadLivePrices().catch(() => {
+      dom.priceStatus.textContent = "Refresh failed. Using fallback prices.";
+      renderAll();
+    });
+  });
+}
+
+function bindThemeControls() {
+  dom.themeButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      applyTheme(button.dataset.themeValue);
+    });
+  });
+}
+
+function init() {
+  applyTheme(getInitialTheme());
+  renderReserveBreakdown();
+  syncControlsToRanges();
+  bindThemeControls();
+  bindScenarioControls();
+  renderAll();
+
+  loadLivePrices().catch(() => {
+    dom.priceStatus.textContent = "Live fetch failed. Using the March 30, 2026 fallback snapshot.";
+    renderAll();
+  });
+}
+
+init();
+    </script>
+  </body>
+</html>
