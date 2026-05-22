@@ -1,6 +1,6 @@
-# Tether Reserve Stress Dash
+# Circle Product Relevance Dashboard
 
-Static GitHub Pages deployment for the Tether reserve stress dashboard.
+Static GitHub Pages deployment for a Circle product relevance dashboard focused on crypto exchanges and custodians.
 
 ## Publish with GitHub Pages
 

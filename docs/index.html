@@ -3,1784 +3,1405 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tether Reserve Stress Dash</title>
+    <title>Circle Product Relevance Dashboard</title>
     <style>
 :root {
-  --bg: #08131a;
-  --panel: rgba(12, 20, 28, 0.78);
-  --panel-strong: rgba(15, 26, 35, 0.94);
-  --ink: #edf2eb;
-  --muted: #96a8a3;
-  --border: rgba(168, 192, 182, 0.14);
-  --line: rgba(168, 192, 182, 0.1);
-  --accent: #78cab6;
-  --accent-soft: #112925;
-  --warm: #dc9b62;
-  --warm-soft: #392517;
-  --danger: #ff8f8f;
-  --success: #80ddb2;
-  --shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
-  --body-glow-left: rgba(220, 155, 98, 0.2);
-  --body-glow-right: rgba(120, 202, 182, 0.18);
-  --body-glow-bottom: rgba(86, 118, 184, 0.18);
-  --body-base-top: #071117;
-  --body-base-mid: #0b1720;
-  --body-base-bottom: #061016;
-  --panel-top: rgba(20, 32, 42, 0.82);
-  --panel-bottom: rgba(10, 17, 24, 0.9);
-  --hero-sheen: rgba(220, 155, 98, 0.22);
-  --hero-start: rgba(13, 44, 45, 0.96);
-  --hero-end: rgba(9, 24, 35, 0.98);
-  --hero-status: rgba(248, 245, 237, 0.88);
-  --button-border: rgba(220, 155, 98, 0.25);
-  --button-start: rgba(220, 155, 98, 0.96);
-  --button-end: rgba(176, 111, 60, 0.92);
-  --button-text: #1a1009;
-  --emphasis-start: rgba(120, 202, 182, 0.16);
-  --emphasis-end: rgba(16, 28, 36, 0.94);
-  --reserve-track: rgba(120, 202, 182, 0.12);
-  --reserve-fill-start: rgba(120, 202, 182, 0.96);
-  --reserve-fill-end: rgba(67, 142, 181, 0.86);
-  --delta-top: rgba(17, 29, 39, 0.96);
-  --delta-bottom: rgba(12, 21, 28, 0.96);
-  --status-top: rgba(220, 155, 98, 0.16);
-  --status-bottom: rgba(18, 25, 31, 0.96);
-  --input-bg: rgba(6, 13, 18, 0.82);
-  --link-hover: #a8ebda;
-  --theme-switch-bg: rgba(10, 17, 24, 0.72);
-  --theme-button-text: var(--muted);
-  --theme-button-hover: rgba(255, 255, 255, 0.06);
-  --theme-button-active-start: rgba(120, 202, 182, 0.98);
-  --theme-button-active-end: rgba(67, 142, 181, 0.86);
-  --theme-button-active-text: #051319;
-}
-
-body[data-theme="light"] {
   color-scheme: light;
-  --bg: #f3efe4;
-  --panel: rgba(255, 252, 244, 0.88);
-  --panel-strong: rgba(248, 243, 231, 0.96);
-  --ink: #1d261f;
-  --muted: #596359;
-  --border: rgba(29, 38, 31, 0.12);
-  --line: rgba(29, 38, 31, 0.08);
-  --accent: #1f5d50;
-  --accent-soft: #dceee8;
-  --warm: #b4683c;
-  --warm-soft: #f4ddcb;
-  --danger: #a73f3f;
-  --success: #1c6b4e;
-  --shadow: 0 22px 60px rgba(53, 49, 40, 0.12);
-  --body-glow-left: rgba(180, 104, 60, 0.16);
-  --body-glow-right: rgba(31, 93, 80, 0.14);
-  --body-glow-bottom: rgba(86, 118, 184, 0.08);
-  --body-base-top: #f5f1e8;
-  --body-base-mid: #f0ebdf;
-  --body-base-bottom: #ece5d6;
-  --panel-top: rgba(255, 250, 242, 0.9);
-  --panel-bottom: rgba(244, 237, 225, 0.92);
-  --hero-sheen: rgba(245, 208, 166, 0.2);
-  --hero-start: rgba(31, 93, 80, 0.92);
-  --hero-end: rgba(24, 49, 43, 0.96);
-  --hero-status: rgba(248, 245, 237, 0.88);
-  --button-border: rgba(180, 104, 60, 0.2);
-  --button-start: #f5d0a6;
-  --button-end: #e7b57b;
-  --button-text: #302215;
-  --emphasis-start: rgba(31, 93, 80, 0.08);
-  --emphasis-end: rgba(255, 252, 244, 0.92);
-  --reserve-track: rgba(31, 93, 80, 0.08);
-  --reserve-fill-start: rgba(31, 93, 80, 0.92);
-  --reserve-fill-end: rgba(50, 126, 113, 0.82);
-  --delta-top: rgba(255, 252, 244, 0.98);
-  --delta-bottom: rgba(248, 243, 231, 0.96);
-  --status-top: rgba(180, 104, 60, 0.08);
-  --status-bottom: rgba(255, 252, 244, 0.96);
-  --input-bg: rgba(255, 255, 255, 0.6);
-  --link-hover: #15453b;
-  --theme-switch-bg: rgba(255, 252, 244, 0.88);
-  --theme-button-text: #596359;
-  --theme-button-hover: rgba(29, 38, 31, 0.06);
-  --theme-button-active-start: rgba(31, 93, 80, 0.92);
-  --theme-button-active-end: rgba(50, 126, 113, 0.82);
-  --theme-button-active-text: #f6f2e8;
+  --bg: #f5f7fb;
+  --ink: #111827;
+  --muted: #5c667a;
+  --panel: #ffffff;
+  --panel-soft: #f8fafc;
+  --line: #d8dee9;
+  --blue: #2775ca;
+  --navy: #10233f;
+  --green: #0f9f7a;
+  --amber: #b87917;
+  --coral: #d65f43;
+  --violet: #6554c0;
+  --shadow: 0 22px 70px rgba(16, 35, 63, 0.12);
+  --radius: 8px;
 }
 
 * {
   box-sizing: border-box;
 }
 
-html,
-body {
-  margin: 0;
-  min-height: 100%;
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  color-scheme: dark;
+  margin: 0;
   background:
-    radial-gradient(circle at top left, var(--body-glow-left), transparent 28%),
-    radial-gradient(circle at top right, var(--body-glow-right), transparent 24%),
-    radial-gradient(circle at 50% 120%, var(--body-glow-bottom), transparent 30%),
-    linear-gradient(180deg, var(--body-base-top) 0%, var(--body-base-mid) 52%, var(--body-base-bottom) 100%);
+    linear-gradient(180deg, rgba(39, 117, 202, 0.09), transparent 360px),
+    var(--bg);
   color: var(--ink);
-  font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
-  transition:
-    background 180ms ease,
-    color 180ms ease;
+  font-family: Inter, "Avenir Next", "Segoe UI", Arial, sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 .page-shell {
-  width: min(1240px, calc(100vw - 32px));
-  margin: 32px auto 48px;
+  width: min(1200px, calc(100vw - 32px));
+  margin: 0 auto;
 }
 
-.topbar {
+.site-header {
+  padding: 36px 0 22px;
+}
+
+.topline {
   display: flex;
-  justify-content: flex-end;
-  margin-bottom: 14px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 30px;
 }
 
-.theme-switch {
-  display: inline-flex;
-  gap: 6px;
-  padding: 6px;
-  border-radius: 999px;
-  background:
-    linear-gradient(180deg, var(--panel-top), var(--panel-bottom)),
-    var(--theme-switch-bg);
-  box-shadow: var(--shadow);
+.brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--navy);
+  font-weight: 800;
 }
 
-.theme-button {
-  border: 0;
-  border-radius: 999px;
-  padding: 10px 16px;
-  background: transparent;
-  color: var(--theme-button-text);
-  font: inherit;
-  font-size: 0.9rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition:
-    background 180ms ease,
-    color 180ms ease,
-    transform 180ms ease;
+.circle-mark {
+  width: 34px;
+  height: 34px;
+  border: 2px solid var(--blue);
+  border-radius: 50%;
+  display: inline-grid;
+  place-items: center;
 }
 
-.theme-button:hover {
-  background: var(--theme-button-hover);
+.circle-mark::before {
+  content: "";
+  width: 13px;
+  height: 13px;
+  border: 2px solid var(--blue);
+  border-radius: 50%;
 }
 
-.theme-button.is-active {
-  background: linear-gradient(135deg, var(--theme-button-active-start), var(--theme-button-active-end));
-  color: var(--theme-button-active-text);
-}
-
-.panel {
-  background:
-    linear-gradient(180deg, var(--panel-top), var(--panel-bottom)),
-    var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 28px;
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(14px);
+.source-date {
+  color: var(--muted);
+  font-size: 0.88rem;
+  text-align: right;
 }
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.9fr) minmax(280px, 0.9fr);
-  gap: 24px;
-  padding: 32px;
+  grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.75fr);
+  gap: 28px;
+  align-items: stretch;
+  padding-bottom: 32px;
 }
 
-.eyebrow,
-.section-kicker {
-  margin: 0 0 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+.hero-copy {
+  padding: 4px 0;
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--blue);
   font-size: 0.78rem;
-  color: var(--accent);
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 h1,
 h2,
 h3,
-h4 {
-  margin: 0;
-  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
-  font-weight: 700;
-  line-height: 1.02;
+h4,
+p {
+  margin-top: 0;
 }
 
 h1 {
-  font-size: clamp(2.6rem, 4vw, 4.6rem);
-  letter-spacing: -0.03em;
+  margin-bottom: 18px;
+  max-width: 820px;
+  font-size: clamp(2.55rem, 5vw, 5.35rem);
+  line-height: 0.98;
+  letter-spacing: 0;
 }
 
 h2 {
-  font-size: clamp(2rem, 2vw, 2.6rem);
+  margin-bottom: 12px;
+  font-size: clamp(1.9rem, 3vw, 3rem);
+  line-height: 1.04;
+  letter-spacing: 0;
 }
 
 h3 {
-  font-size: 1.75rem;
-  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  font-size: 1.3rem;
+  line-height: 1.16;
+  letter-spacing: 0;
 }
 
 h4 {
-  font-size: 1.55rem;
-  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  line-height: 1.25;
+  letter-spacing: 0;
 }
 
-.hero-text,
-.section-note,
-.metric-footnote,
-.delta-footnote,
-.control-note,
-.price-status,
-li,
-th,
-td,
-label,
-.metric-label,
-.delta-label {
-  font-size: 0.97rem;
+.hero-text {
+  max-width: 760px;
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1.55;
+}
+
+.hero-panel {
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.token-stack {
+  display: grid;
+  gap: 14px;
+}
+
+.token-row {
+  display: grid;
+  grid-template-columns: 58px 1fr;
+  gap: 14px;
+  align-items: center;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel-soft);
+}
+
+.token-logo {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+}
+
+.token-logo svg {
+  width: 35px;
+  height: 35px;
+}
+
+.token-logo.usdc {
+  background: var(--blue);
+}
+
+.token-logo.eurc {
+  background: #1f6feb;
+}
+
+.token-name {
+  margin: 0 0 4px;
+  font-weight: 850;
+}
+
+.token-copy {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
+.hero-note {
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 0.84rem;
   line-height: 1.45;
 }
 
-.hero-text,
-.section-note,
-.metric-footnote,
-.delta-footnote,
-.control-note,
-.price-status,
-.metric-label,
-.delta-label {
-  color: var(--muted);
-}
-
-.hero-actions {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 18px;
-  padding: 18px;
-  border-radius: 22px;
-  background:
-    radial-gradient(circle at top right, var(--hero-sheen), transparent 42%),
-    linear-gradient(135deg, var(--hero-start), var(--hero-end));
-  color: #f6f2e8;
-}
-
-.action-button {
-  align-self: flex-start;
-  padding: 12px 18px;
-  border: 1px solid var(--button-border);
-  border-radius: 999px;
-  background: linear-gradient(135deg, var(--button-start), var(--button-end));
-  color: var(--button-text);
-  font-size: 0.95rem;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
-}
-
-.action-button:hover {
-  transform: translateY(-1px);
-}
-
-.hero-actions .price-status {
-  color: var(--hero-status);
-  margin: 0;
-}
-
-.metrics-grid,
-.two-column,
-.scenario-grid,
-.delta-grid,
-.notes-grid,
-.history-summary {
+.stat-strip {
   display: grid;
-  gap: 18px;
-}
-
-.metrics-grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  margin-top: 18px;
+  gap: 14px;
+  margin-bottom: 34px;
 }
 
-.history-panel {
-  margin-top: 18px;
-}
-
-.history-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 18px;
-  margin-bottom: 18px;
-}
-
-.legend-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--muted);
-  font-size: 0.9rem;
-}
-
-.legend-swatch {
-  width: 18px;
-  height: 3px;
-  border-radius: 999px;
-  display: inline-block;
-}
-
-.legend-swatch.official {
-  background: linear-gradient(90deg, var(--reserve-fill-start), var(--reserve-fill-end));
-}
-
-.legend-swatch.modeled {
-  background: linear-gradient(90deg, var(--button-start), var(--button-end));
-}
-
-.legend-swatch.threshold {
-  background: repeating-linear-gradient(
-    90deg,
-    var(--danger) 0 6px,
-    transparent 6px 10px
-  );
-}
-
-.history-chart-shell {
-  overflow-x: auto;
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  background:
-    linear-gradient(180deg, var(--delta-top), var(--delta-bottom)),
-    var(--panel-strong);
-}
-
-.history-chart {
-  width: 100%;
-  min-width: 920px;
-  display: block;
-}
-
-.history-summary {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  margin-top: 18px;
-}
-
-.history-card {
+.stat {
   padding: 18px;
   border: 1px solid var(--line);
-  border-radius: 20px;
-  background:
-    linear-gradient(180deg, var(--delta-top), var(--delta-bottom)),
-    var(--panel-strong);
+  border-radius: var(--radius);
+  background: var(--panel);
 }
 
-.history-card.modeled {
-  background: linear-gradient(180deg, var(--status-top), var(--status-bottom));
+.stat-value {
+  margin: 0 0 4px;
+  color: var(--navy);
+  font-size: 1.7rem;
+  font-weight: 850;
 }
 
-.history-card-label {
-  margin: 0 0 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--accent);
-  font-size: 0.78rem;
-  font-weight: 700;
-}
-
-.history-card-date,
-.history-card-note,
-.history-card-detail {
+.stat-label {
   margin: 0;
   color: var(--muted);
   font-size: 0.9rem;
-  line-height: 1.4;
+  line-height: 1.35;
 }
 
-.history-card-date {
-  margin-bottom: 12px;
-}
-
-.history-card-value {
-  margin: 0 0 8px;
-}
-
-.history-card-detail + .history-card-detail {
-  margin-top: 6px;
-}
-
-.chart-grid-line,
-.chart-axis-line {
-  stroke: var(--line);
-  stroke-width: 1;
-}
-
-.chart-grid-line.threshold {
-  stroke: var(--danger);
-  stroke-dasharray: 6 6;
-  stroke-width: 1.5;
-}
-
-.chart-axis-label,
-.chart-point-label,
-.chart-x-label,
-.chart-threshold-label {
-  fill: var(--muted);
-  font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
-}
-
-.chart-axis-label,
-.chart-threshold-label {
-  font-size: 12px;
-}
-
-.chart-x-label {
-  font-size: 12px;
-  text-anchor: middle;
-}
-
-.chart-point-label {
-  font-size: 12px;
-  font-weight: 700;
-  text-anchor: middle;
-}
-
-.chart-area {
-  fill: color-mix(in srgb, var(--reserve-fill-start) 18%, transparent);
-}
-
-.chart-line {
-  fill: none;
-  stroke: var(--reserve-fill-start);
-  stroke-width: 4;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.chart-line.modeled {
-  stroke: var(--button-start);
-  stroke-dasharray: 10 8;
-}
-
-.chart-point {
-  fill: var(--reserve-fill-start);
-  stroke: var(--panel-bottom);
-  stroke-width: 3;
-}
-
-.chart-point.modeled {
-  fill: var(--button-start);
-}
-
-.metric-card,
-.delta-card {
-  padding: 24px;
-}
-
-.metric-card.emphasis {
-  background: linear-gradient(180deg, var(--emphasis-start), var(--emphasis-end));
-}
-
-.two-column {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin-top: 18px;
-}
-
-.two-column > .panel,
-.notes-panel,
-.panel + .panel,
-section.panel {
-  padding: 28px;
+.section-band {
+  padding: 38px 0;
+  border-top: 1px solid var(--line);
 }
 
 .section-header {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  align-items: flex-start;
-  margin-bottom: 22px;
-}
-
-.section-note {
-  margin: 0;
-  max-width: 340px;
-  text-align: right;
-}
-
-.reserve-breakdown {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.reserve-row {
   display: grid;
-  grid-template-columns: minmax(210px, 1.4fr) 1.2fr auto;
-  gap: 14px;
-  align-items: center;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.58fr);
+  gap: 26px;
+  align-items: end;
+  margin-bottom: 24px;
 }
 
-.reserve-label-wrap {
+.section-summary {
+  margin-bottom: 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.audience-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.audience-panel {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.audience-panel p {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.tag-list {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
 }
 
-.reserve-label {
+.tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--navy);
+  font-size: 0.82rem;
   font-weight: 700;
 }
 
-.reserve-detail {
+.controls {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: rgba(245, 247, 251, 0.94);
+  backdrop-filter: blur(12px);
+}
+
+.controls-inner {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.65fr) minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.search-box {
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--ink);
+}
+
+.segmented {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-button {
+  min-height: 42px;
+  padding: 10px 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--navy);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.filter-button.is-active {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: #fff;
+}
+
+.jump-links {
+  display: flex;
+  gap: 8px;
+}
+
+.jump-links a {
+  min-height: 42px;
+  padding: 10px 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--navy);
+  font-weight: 800;
+}
+
+.bucket-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 22px;
+  align-items: start;
+  margin-bottom: 18px;
+}
+
+.bucket-count {
+  min-width: 102px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
   color: var(--muted);
+  text-align: center;
   font-size: 0.88rem;
 }
 
-.reserve-bar {
-  position: relative;
-  height: 12px;
-  border-radius: 999px;
-  background: var(--reserve-track);
-  overflow: hidden;
+.bucket-count strong {
+  display: block;
+  color: var(--navy);
+  font-size: 1.45rem;
 }
 
-.reserve-bar > span {
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 0;
-  border-radius: inherit;
-  background: linear-gradient(90deg, var(--reserve-fill-start), var(--reserve-fill-end));
-}
-
-.reserve-value {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-  font-weight: 700;
-}
-
-.delta-grid,
-.scenario-grid {
+.product-grid {
+  display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.delta-card {
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  background:
-    linear-gradient(180deg, var(--delta-top), var(--delta-bottom)),
-    var(--panel-strong);
-}
-
-.delta-label {
-  margin: 0 0 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.78rem;
-  font-weight: 700;
-}
-
-.delta-footnote {
-  margin: 8px 0 0;
-}
-
-.status-card {
-  background: linear-gradient(180deg, var(--status-top), var(--status-bottom));
-}
-
-.table-wrap {
-  overflow-x: auto;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 880px;
-}
-
-th,
-td {
-  padding: 14px 12px;
-  text-align: left;
-  border-bottom: 1px solid var(--line);
-  vertical-align: top;
-}
-
-th {
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-}
-
-td {
-  font-variant-numeric: tabular-nums;
-}
-
-.danger-text {
-  color: var(--danger);
-}
-
-.success-text {
-  color: var(--success);
-}
-
-.control-group + .control-group {
-  margin-top: 26px;
-}
-
-.control-header {
-  display: flex;
-  justify-content: space-between;
   gap: 16px;
-  align-items: center;
-  margin-bottom: 12px;
 }
 
-.price-input {
-  width: 180px;
-  padding: 12px 14px;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background: var(--input-bg);
-  color: var(--ink);
-  font: inherit;
+.product-card {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 100%;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  box-shadow: 0 12px 34px rgba(16, 35, 63, 0.06);
 }
 
-.price-input::placeholder {
-  color: var(--muted);
+.product-card.is-hidden {
+  display: none;
 }
 
-input[type="range"] {
-  width: 100%;
-  accent-color: var(--accent);
+.product-top {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 13px;
+  align-items: start;
 }
 
-.control-note {
-  margin: 10px 0 0;
+.product-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius);
+  display: grid;
+  place-items: center;
+  background: rgba(39, 117, 202, 0.1);
+  color: var(--blue);
+  font-weight: 900;
 }
 
-.notes-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+.product-icon.payments {
+  background: rgba(15, 159, 122, 0.12);
+  color: var(--green);
 }
 
-.notes-grid h4 {
-  margin-bottom: 14px;
+.product-icon.digital {
+  background: rgba(39, 117, 202, 0.12);
+  color: var(--blue);
 }
 
-ul {
-  margin: 0;
-  padding-left: 18px;
+.product-icon.arc {
+  background: rgba(101, 84, 192, 0.13);
+  color: var(--violet);
 }
 
-li + li {
+.product-icon svg {
+  width: 25px;
+  height: 25px;
+}
+
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
   margin-top: 8px;
 }
 
-a {
-  color: var(--accent);
+.pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: var(--panel-soft);
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 800;
 }
 
-a:hover {
-  color: var(--link-hover);
+.pill.ga {
+  background: rgba(15, 159, 122, 0.12);
+  color: #07654e;
 }
 
-@media (max-width: 1024px) {
+.pill.beta {
+  background: rgba(101, 84, 192, 0.13);
+  color: #46379a;
+}
+
+.pill.limited {
+  background: rgba(184, 121, 23, 0.14);
+  color: #865708;
+}
+
+.summary {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.product-card.single-lens .why-grid {
+  grid-template-columns: 1fr;
+}
+
+.why-box {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel-soft);
+}
+
+.why-box strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--navy);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.why-box p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.44;
+}
+
+.card-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 2px;
+}
+
+.source-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 6px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--navy);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.source-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.source-card {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.source-card p {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.empty-state {
+  display: none;
+  padding: 22px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  color: var(--muted);
+  background: var(--panel);
+}
+
+.empty-state.is-visible {
+  display: block;
+}
+
+@media (max-width: 1020px) {
   .hero,
-  .metrics-grid,
-  .two-column,
-  .delta-grid,
-  .scenario-grid,
-  .notes-grid,
-  .history-summary {
+  .section-header,
+  .audience-grid,
+  .product-grid,
+  .source-grid {
     grid-template-columns: 1fr;
   }
 
-  .section-header {
-    flex-direction: column;
+  .stat-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .section-note {
-    text-align: left;
-    max-width: none;
+  .controls-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .jump-links {
+    flex-wrap: wrap;
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 700px) {
   .page-shell {
-    width: min(100vw - 20px, 1240px);
-    margin: 12px auto 28px;
+    width: min(100vw - 22px, 1200px);
   }
 
-  .topbar {
-    margin-bottom: 10px;
+  .site-header {
+    padding-top: 20px;
   }
 
-  .hero,
-  .two-column > .panel,
-  section.panel,
-  .notes-panel,
-  .metric-card,
-  .delta-card {
-    padding: 20px;
+  .topline,
+  .bucket-heading {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+
+  .source-date {
+    text-align: left;
   }
 
   h1 {
-    font-size: 2.35rem;
+    font-size: 2.42rem;
   }
 
-  .reserve-row {
+  .stat-strip,
+  .why-grid {
     grid-template-columns: 1fr;
   }
 
-  .price-input {
-    width: 140px;
+  .hero-panel,
+  .product-card,
+  .audience-panel {
+    padding: 18px;
   }
 }
-
-</style>
+    </style>
   </head>
   <body>
-    <div class="page-shell">
-      <div class="topbar">
-        <div class="theme-switch" role="group" aria-label="Theme switcher">
-          <button class="theme-button" type="button" data-theme-value="light" aria-pressed="false">
-            Light
-          </button>
-          <button class="theme-button" type="button" data-theme-value="dark" aria-pressed="false">
-            Dark
-          </button>
+    <header class="site-header">
+      <div class="page-shell">
+        <div class="topline">
+          <div class="brand-lockup">
+            <span class="circle-mark" aria-hidden="true"></span>
+            <span>Circle product dashboard</span>
+          </div>
+          <div class="source-date">Built from internal Product Book, Audience Segmentation, and official Circle web pages. Checked May 22, 2026.</div>
+        </div>
+
+        <div class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow">Exchange and custodian product map</p>
+            <h1>Why every Circle product matters to crypto exchanges and custodians</h1>
+            <p class="hero-text">
+              This dashboard reframes the Circle portfolio around the buyer question: where does each product create a better trading, custody, settlement, liquidity, compliance, or client experience for a crypto exchange or custodian? Products are grouped into Payments, Digital Assets, and Arc.
+            </p>
+          </div>
+
+          <aside class="hero-panel" aria-label="Official token logos">
+            <div class="token-stack">
+              <div class="token-row">
+                <div class="token-logo usdc" aria-label="USDC logo">
+                  <svg viewBox="0 0 24 24" fill="none" role="img">
+                    <path d="M14.6409 8.04883H11.3778C10.2868 8.04883 9.40234 8.93329 9.40234 10.0243C9.40234 11.1154 10.2868 11.9998 11.3778 11.9998H13.1001C14.1911 11.9998 15.0756 12.8843 15.0756 13.9753C15.0756 15.0664 14.1911 15.9508 13.1001 15.9508H9.83699" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    <path d="M12.2393 8.04942V6.73242" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    <path d="M12.2393 17.2682V15.9512" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    <path d="M9.36549 3C5.39708 4.06946 2.47656 7.69367 2.47656 12C2.47656 16.3063 5.39708 19.9305 9.36549 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    <path d="M14.6335 3C18.6019 4.06946 21.5225 7.69367 21.5225 12C21.5225 16.3063 18.6019 19.9305 14.6335 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                  </svg>
+                </div>
+                <div>
+                  <p class="token-name">USDC</p>
+                  <p class="token-copy">Official Circle mark: digital dollar symbol from Circle site navigation, set in the USDC brand blue.</p>
+                </div>
+              </div>
+
+              <div class="token-row">
+                <div class="token-logo eurc" aria-label="EURC logo">
+                  <svg viewBox="0 0 24 24" fill="none" role="img">
+                    <path d="M8.76696 13.2678C8.76696 13.2678 8.65527 12.591 8.65527 12.0997C8.65527 11.6084 8.76696 10.9316 8.76696 10.9316" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    <path d="M9.38893 3C5.42052 4.06946 2.5 7.69367 2.5 12C2.5 16.3063 5.42052 19.9305 9.38893 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    <path d="M14.657 3C18.6254 4.06946 21.5459 7.69367 21.5459 12C21.5459 16.3063 18.6254 19.9305 14.657 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M15.7397 8.4225C15.4716 8.91359 14.8765 9.08262 14.4105 8.80003C13.2313 8.08487 11.6996 8.26017 10.6929 9.32122C10.4806 9.54491 10.306 9.79255 10.1687 10.0559H12.4232C12.9071 10.0559 13.2993 10.4481 13.2993 10.9319C13.2993 11.4157 12.9071 11.8079 12.4232 11.8079H9.38911C9.19554 11.9377 8.95793 11.9962 8.71359 11.9551C8.57802 11.9323 8.45348 11.881 8.34459 11.8079H6.88191C6.39808 11.8079 6.00586 11.4157 6.00586 10.9319C6.00586 10.4481 6.39808 10.0559 6.88191 10.0559H8.06567C8.29938 9.25585 8.71663 8.50235 9.31628 7.87036C10.961 6.13691 13.4589 5.85557 15.3815 7.02162C15.8475 7.30421 16.0078 7.9314 15.7397 8.4225ZM11.8692 14.1441C12.3531 14.1441 12.7453 13.7519 12.7453 13.2681C12.7453 12.7842 12.3531 12.392 11.8692 12.392H9.38918C9.1956 12.2622 8.95797 12.2037 8.71359 12.2448C8.57799 12.2676 8.45342 12.3189 8.34452 12.392H6.88203C6.3982 12.392 6.00598 12.7842 6.00598 13.2681C6.00598 13.7519 6.3982 14.1441 6.88203 14.1441H8.06569C8.29939 14.9441 8.71665 15.6976 9.31628 16.3295C10.961 18.063 13.4589 18.3443 15.3815 17.1783C15.8475 16.8957 16.0078 16.2685 15.7397 15.7774C15.4716 15.2863 14.8765 15.1173 14.4105 15.3999C13.2313 16.115 11.6996 15.9397 10.6929 14.8787C10.4806 14.655 10.306 14.4074 10.1687 14.1441H11.8692Z" fill="currentColor"></path>
+                  </svg>
+                </div>
+                <div>
+                  <p class="token-name">EURC</p>
+                  <p class="token-copy">Official Circle mark: EURC symbol from Circle site navigation, not the phased-out EUROC naming.</p>
+                </div>
+              </div>
+            </div>
+            <p class="hero-note">Logo paths are copied from Circle's official USDC/EURC navigation assets and paired with token treatments for dashboard use.</p>
+          </aside>
+        </div>
+
+        <div class="stat-strip" aria-label="Dashboard coverage">
+          <div class="stat">
+            <p class="stat-value" id="productCount">34</p>
+            <p class="stat-label">Circle products and product capabilities mapped</p>
+          </div>
+          <div class="stat">
+            <p class="stat-value">3</p>
+            <p class="stat-label">Buckets: Payments, Digital Assets, Arc</p>
+          </div>
+          <div class="stat">
+            <p class="stat-value">2</p>
+            <p class="stat-label">Audience lenses: exchange and custodian</p>
+          </div>
+          <div class="stat">
+            <p class="stat-value">1</p>
+            <p class="stat-label">Goal: explain why each product matters</p>
+          </div>
         </div>
       </div>
-      <header class="hero panel">
-        <div class="hero-copy">
-          <p class="eyebrow">Reserve stress dashboard</p>
-          <h1>Tether Reserve Stress Dash</h1>
-          <p class="hero-text">
-            Uses the latest official Tether reserve report currently published on
-            Tether.io, the Q4 2025 attestation released on January 30, 2026, plus
-            live BTC and gold prices to estimate when Tether's liabilities would
-            overtake assets if one marked asset moved while the rest stayed flat.
-          </p>
-        </div>
-        <div class="hero-actions">
-          <button id="refreshButton" class="action-button">Refresh live prices</button>
-          <p id="priceStatus" class="price-status">Loading BTC and gold prices...</p>
-        </div>
-      </header>
+    </header>
 
-      <section class="metrics-grid">
-        <article class="metric-card panel">
-          <p class="metric-label">Reported assets</p>
-          <h2 id="reportedAssetsValue">$0</h2>
-          <p class="metric-footnote">Official reserve total at 2025-12-31</p>
-        </article>
-        <article class="metric-card panel">
-          <p class="metric-label">Reported liabilities</p>
-          <h2 id="reportedLiabilitiesValue">$0</h2>
-          <p class="metric-footnote">Fiat-token liabilities plus other liabilities</p>
-        </article>
-        <article class="metric-card panel emphasis">
-          <p class="metric-label">Estimated equity now</p>
-          <h2 id="liveEquityValue">$0</h2>
-          <p class="metric-footnote">Reported equity, re-marked for BTC and gold</p>
-        </article>
-        <article class="metric-card panel">
-          <p class="metric-label">Equity cushion / liabilities</p>
-          <h2 id="coverageRatioValue">0.00%</h2>
-          <p class="metric-footnote">Estimated equity as a share of liabilities</p>
-        </article>
-      </section>
-
-      <section class="panel history-panel">
+    <section class="section-band" id="audience">
+      <div class="page-shell">
         <div class="section-header">
           <div>
-            <p class="section-kicker">12-Month History</p>
-            <h3>Historical cushion and coverage</h3>
+            <p class="eyebrow">Audience lens</p>
+            <h2>Start from the job these buyers need done</h2>
           </div>
-          <p class="section-note">
-            Official quarter-end reports for March 31, June 30, September 30, and
-            December 31, 2025, plus one distinct current modeled point.
+          <p class="section-summary">
+            The segmentation source frames exchanges around trading services, market making, dollar access, payments, and distribution. Custodians add secure storage, treasury, and collateral management needs.
           </p>
         </div>
-        <div class="history-legend">
-          <span class="legend-item">
-            <span class="legend-swatch official"></span>
-            Official equity / liabilities cushion
-          </span>
-          <span class="legend-item">
-            <span class="legend-swatch modeled"></span>
-            Current modeled cushion
-          </span>
-          <span class="legend-item">
-            <span class="legend-swatch threshold"></span>
-            3.00% alert threshold
-          </span>
+
+        <div class="audience-grid">
+          <article class="audience-panel">
+            <h3>Crypto exchange</h3>
+            <p>Needs liquid, trusted quote assets; regional fiat access; fast deposits and withdrawals; multichain support; capital-efficient treasury; differentiated trading, earn, and payment features.</p>
+            <div class="tag-list">
+              <span class="tag">Trading pairs</span>
+              <span class="tag">User funding</span>
+              <span class="tag">Liquidity</span>
+              <span class="tag">Withdrawals</span>
+              <span class="tag">FX</span>
+            </div>
+          </article>
+
+          <article class="audience-panel">
+            <h3>Crypto custodian</h3>
+            <p>Needs secure asset support, client settlement, off-exchange collateral, policy controls, chain coverage, reporting-friendly stable assets, and ways to make client capital productive.</p>
+            <div class="tag-list">
+              <span class="tag">Custody rails</span>
+              <span class="tag">Collateral</span>
+              <span class="tag">Treasury</span>
+              <span class="tag">Controls</span>
+              <span class="tag">Client access</span>
+            </div>
+          </article>
         </div>
-        <div class="history-chart-shell">
-          <svg
-            id="historyChart"
-            class="history-chart"
-            viewBox="0 0 960 360"
-            role="img"
-            aria-labelledby="historyChartTitle historyChartDesc"
-          >
-            <title id="historyChartTitle">Tether historical equity to liabilities cushion</title>
-            <desc id="historyChartDesc">
-              Tether official quarter-end equity to liabilities cushion over the last
-              12 months, plus a current modeled point.
-            </desc>
-          </svg>
+      </div>
+    </section>
+
+    <div class="controls">
+      <div class="page-shell controls-inner">
+        <input id="searchInput" class="search-box" type="search" placeholder="Search products, use cases, or rails" aria-label="Search products" />
+        <div class="segmented" role="group" aria-label="Audience filter">
+          <button class="filter-button is-active" type="button" data-audience="all">Both audiences</button>
+          <button class="filter-button" type="button" data-audience="exchange">Exchange lens</button>
+          <button class="filter-button" type="button" data-audience="custodian">Custodian lens</button>
         </div>
-        <div id="historySummary" class="history-summary"></div>
-      </section>
-
-      <section class="two-column">
-        <article class="panel">
-          <div class="section-header">
-            <div>
-              <p class="section-kicker">Reserve mix</p>
-              <h3>Official reserve breakdown</h3>
-            </div>
-            <p id="reportDateLabel" class="section-note"></p>
-          </div>
-          <div id="reserveBreakdown" class="reserve-breakdown"></div>
-        </article>
-
-        <article class="panel">
-          <div class="section-header">
-            <div>
-              <p class="section-kicker">Marked-to-market</p>
-              <h3>What changed since the report</h3>
-            </div>
-            <p class="section-note">Only BTC and gold are re-marked live</p>
-          </div>
-          <div class="delta-grid">
-            <div class="delta-card">
-              <p class="delta-label">BTC contribution to equity delta</p>
-              <h4 id="btcDeltaValue">$0</h4>
-              <p id="btcLivePrice" class="delta-footnote"></p>
-            </div>
-            <div class="delta-card">
-              <p class="delta-label">Gold contribution to equity delta</p>
-              <h4 id="goldDeltaValue">$0</h4>
-              <p id="goldLivePrice" class="delta-footnote"></p>
-            </div>
-            <div class="delta-card">
-              <p class="delta-label">Estimated live assets</p>
-              <h4 id="liveAssetsValue">$0</h4>
-              <p class="delta-footnote">Reported assets plus live price deltas</p>
-            </div>
-            <div class="delta-card">
-              <p class="delta-label">Headroom over liabilities</p>
-              <h4 id="headroomValue">$0</h4>
-              <p class="delta-footnote">Positive means modeled solvency remains</p>
-            </div>
-          </div>
-        </article>
-      </section>
-
-      <section class="panel">
-        <div class="section-header">
-          <div>
-            <p class="section-kicker">Thresholds</p>
-            <h3>Asset prices that erase the equity cushion</h3>
-          </div>
-          <p class="section-note">
-            Assumes one priced asset moves and everything else stays at current modeled levels
-          </p>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Asset</th>
-                <th>Implied units held</th>
-                <th>Live price</th>
-                <th>Modeled live value</th>
-                <th>Breach price</th>
-                <th>Drop from live</th>
-                <th>Equity if asset = 0</th>
-              </tr>
-            </thead>
-            <tbody id="thresholdTableBody"></tbody>
-          </table>
-        </div>
-      </section>
-
-      <section class="two-column">
-        <article class="panel">
-          <div class="section-header">
-            <div>
-              <p class="section-kicker">Scenario lab</p>
-              <h3>Move BTC and gold yourself</h3>
-            </div>
-            <p class="section-note">Use either the sliders or the number fields</p>
-          </div>
-
-          <div class="control-group">
-            <div class="control-header">
-              <label for="btcRange">Bitcoin</label>
-              <input id="btcInput" class="price-input" type="number" min="0" step="100" />
-            </div>
-            <input id="btcRange" type="range" min="0" max="150000" step="100" />
-            <p id="btcThresholdHint" class="control-note"></p>
-          </div>
-
-          <div class="control-group">
-            <div class="control-header">
-              <label for="goldRange">Gold</label>
-              <input id="goldInput" class="price-input" type="number" min="0" step="1" />
-            </div>
-            <input id="goldRange" type="range" min="0" max="7000" step="1" />
-            <p id="goldThresholdHint" class="control-note"></p>
-          </div>
-        </article>
-
-        <article class="panel">
-          <div class="section-header">
-            <div>
-              <p class="section-kicker">Scenario output</p>
-              <h3>Modeled balance sheet under your prices</h3>
-            </div>
-            <p class="section-note">Non-priced reserve buckets stay fixed</p>
-          </div>
-          <div class="scenario-grid">
-            <div class="delta-card">
-              <p class="delta-label">Modeled assets</p>
-              <h4 id="scenarioAssetsValue">$0</h4>
-              <p class="delta-footnote">After applying your BTC and gold marks</p>
-            </div>
-            <div class="delta-card">
-              <p class="delta-label">Modeled equity</p>
-              <h4 id="scenarioEquityValue">$0</h4>
-              <p class="delta-footnote">Assets minus fixed liabilities</p>
-            </div>
-            <div class="delta-card">
-              <p class="delta-label">Equity cushion / liabilities</p>
-              <h4 id="scenarioCoverageValue">0.00%</h4>
-              <p class="delta-footnote">Modeled equity as a share of liabilities</p>
-            </div>
-            <div class="delta-card status-card">
-              <p class="delta-label">Status</p>
-              <h4 id="scenarioStatusValue">Stable</h4>
-              <p id="scenarioStatusNote" class="delta-footnote"></p>
-            </div>
-          </div>
-        </article>
-      </section>
-
-      <section class="panel">
-        <div class="section-header">
-          <div>
-            <p class="section-kicker">Buckets without unit disclosure</p>
-            <h3>How large a write-down would be needed</h3>
-          </div>
-          <p class="section-note">
-            Tether does not disclose enough public position detail to translate these into a single market price
-          </p>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Bucket</th>
-                <th>Reported value</th>
-                <th>Haircut needed to erase current equity</th>
-                <th>Could this bucket alone push assets below liabilities?</th>
-              </tr>
-            </thead>
-            <tbody id="haircutTableBody"></tbody>
-          </table>
-        </div>
-      </section>
-
-      <section class="panel notes-panel">
-        <div class="section-header">
-          <div>
-            <p class="section-kicker">Model notes</p>
-            <h3>Assumptions and source links</h3>
-          </div>
-        </div>
-        <div class="notes-grid">
-          <div>
-            <h4>Assumptions</h4>
-            <ul>
-              <li>Liabilities stay fixed at the official December 31, 2025 reported amount.</li>
-              <li>BTC units are implied from Tether's disclosed BTC value and BTC price in the report.</li>
-              <li>Gold ounces are implied from Tether's disclosed gold value and the December 31, 2025 XAU close used as a proxy.</li>
-              <li>Everything outside BTC and gold remains marked at reported values unless you move it via the haircut table mentally.</li>
-              <li>No newer official reserve report was listed on Tether's Data page when this dashboard was updated.</li>
-            </ul>
-          </div>
-          <div>
-            <h4>Sources</h4>
-            <ul>
-              <li>
-                <a href="https://tether.io/data" target="_blank" rel="noreferrer">Tether Data page, which currently lists the latest official reserve report</a>
-              </li>
-              <li>
-                <a href="https://tether.io/news/tether-approaching-120b-in-u-s-treasuries-confirms-quarterly-operating-profit-over-1b-and-strengthens-global-usdt-demand-in-q1-2025/" target="_blank" rel="noreferrer">Tether Q1 2025 attestation release, published May 1, 2025</a>
-              </li>
-              <li>
-                <a href="https://tether.io/news/tether-issues-20b-in-usdt-ytd-becomes-one-of-largest-u-s-debt-holders-with-127b-in-treasuries-net-profit-4-9b-in-q2-2025-attestation-report/" target="_blank" rel="noreferrer">Tether Q2 2025 attestation release, published July 31, 2025</a>
-              </li>
-              <li>
-                <a href="https://tether.io/news/tether-attestation-reports-q1-q3-2025-profit-surpassing-10b-record-levels-in-us-treasuries-exposure-accelerating-usdt-supply-amidst-worlds-macroeconomic-uncertainty/" target="_blank" rel="noreferrer">Tether Q3 2025 attestation release, published October 31, 2025</a>
-              </li>
-              <li>
-                <a href="https://tether.io/news/tether-delivers-10b-profits-in-2025-6-3b-in-excess-reserves-and-record-141-billion-exposure-in-u-s-treasury-holdings/" target="_blank" rel="noreferrer">Tether Q4 2025 attestation release, published January 30, 2026</a>
-              </li>
-              <li>
-                <a href="https://assets.ctfassets.net/vyse88cgwfbl/20d2BoOAd28ZfkiQPYPjGN/4ed12f5939e1e06ee5aceccad4effbe4/ISAE_3000R_-_Opinion_Tether_International_Financial_Figure_31-12-2025.pdf" target="_blank" rel="noreferrer">Tether Financial Figures &amp; Reserves Report, December 31, 2025</a>
-              </li>
-              <li>
-                <a href="https://api.gold-api.com/price/BTC" target="_blank" rel="noreferrer">Live BTC price feed</a>
-              </li>
-              <li>
-                <a href="https://api.gold-api.com/price/XAU" target="_blank" rel="noreferrer">Live XAU price feed</a>
-              </li>
-              <li>
-                <a href="https://www.statmuse.com/money/ask/gold-price-on-dec-31-year-2025" target="_blank" rel="noreferrer">December 31, 2025 gold close proxy used for implied ounces</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
+        <nav class="jump-links" aria-label="Bucket navigation">
+          <a href="#payments">Payments</a>
+          <a href="#digital-assets">Digital Assets</a>
+          <a href="#arc">Arc</a>
+        </nav>
+      </div>
     </div>
 
-    <script>
-const REPORT = {
-  reportLabel: "Latest official Tether reserve report currently published",
-  reportDate: "2025-12-31",
-  publicationDate: "2026-01-30",
-  assets: 192_877_729_144,
-  liabilities: 186_539_895_593,
-  equity: 6_337_833_551,
-  reserveBuckets: [
-    {
-      name: "U.S. Treasury Bills",
-      value: 122_325_714_946,
-      detail: "63.42% of reported reserves",
-    },
-    {
-      name: "Overnight Reverse Repo",
-      value: 19_279_408_559,
-      detail: "Collateralized by U.S. Treasuries",
-    },
-    {
-      name: "Precious metals",
-      value: 17_450_435_088,
-      detail: "LBMA standard physical gold bars",
-    },
-    {
-      name: "Secured loans",
-      value: 17_043_516_665,
-      detail: "Over-collateralized by liquid assets",
-    },
-    {
-      name: "Bitcoin",
-      value: 8_430_374_292,
-      detail: "On-chain wallets controlled by Tether",
-    },
-    {
-      name: "Term Reverse Repo",
-      value: 5_548_439_332,
-      detail: "Residual average maturity under 90 days",
-    },
-    {
-      name: "Other investments",
-      value: 2_762_856_288,
-      detail: "Not disclosed in public detail",
-    },
-    {
-      name: "Corporate bonds",
-      value: 3_031_239,
-      detail: "Residual average maturity over 360 days",
-    },
-    {
-      name: "Cash & bank deposits",
-      value: 33_952_735,
-      detail: "Cash at financial institutions",
-    },
-  ],
-};
+    <main>
+      <section class="section-band" id="payments">
+        <div class="page-shell">
+          <div class="bucket-heading">
+            <div>
+              <p class="eyebrow">Bucket 01</p>
+              <h2>Payments</h2>
+              <p class="section-summary">Products that help exchanges and custodians connect stablecoin liquidity to global payout, settlement, and FX flows.</p>
+            </div>
+            <div class="bucket-count"><strong id="paymentsCount">0</strong>Products</div>
+          </div>
+          <div id="paymentsGrid" class="product-grid"></div>
+        </div>
+      </section>
 
-const HISTORICAL_REPORTS = [
-  {
-    label: "Q1 2025",
-    date: "2025-03-31",
-    sourceType: "official",
-    assets: 149_274_515_988,
-    liabilities: 143_682_673_588,
-  },
-  {
-    label: "Q2 2025",
-    date: "2025-06-30",
-    sourceType: "official",
-    assets: 162_574_933_798,
-    liabilities: 157_108_009_474,
-  },
-  {
-    label: "Q3 2025",
-    date: "2025-09-30",
-    sourceType: "official",
-    assets: 181_223_149_214,
-    liabilities: 174_445_364_503,
-  },
-  {
-    label: "Q4 2025",
-    date: "2025-12-31",
-    sourceType: "official",
-    assets: 192_877_729_144,
-    liabilities: 186_539_895_593,
-  },
-];
+      <section class="section-band" id="digital-assets">
+        <div class="page-shell">
+          <div class="bucket-heading">
+            <div>
+              <p class="eyebrow">Bucket 02</p>
+              <h2>Digital Assets</h2>
+              <p class="section-summary">Stablecoins, tokenized funds, liquidity services, and reserve infrastructure that exchanges and custodians can list, custody, distribute, or use operationally.</p>
+            </div>
+            <div class="bucket-count"><strong id="digitalCount">0</strong>Products</div>
+          </div>
+          <div id="digitalGrid" class="product-grid"></div>
+        </div>
+      </section>
 
-const PRICED_EXPOSURES = {
-  BTC: {
-    label: "Bitcoin",
-    reportValue: 8_430_374_292,
-    reportPrice: 87_647.54,
-    liveEndpoint: "https://api.gold-api.com/price/BTC",
-    fallbackPrice: 67_998.59375,
-    fallbackUpdatedAt: "2026-03-30T13:29:10Z",
-    unitLabel: "BTC",
-  },
-  XAU: {
-    label: "Physical gold",
-    reportValue: 17_450_435_088,
-    reportPrice: 4_315.13,
-    liveEndpoint: "https://api.gold-api.com/price/XAU",
-    fallbackPrice: 4_569.899902,
-    fallbackUpdatedAt: "2026-03-30T13:29:09Z",
-    unitLabel: "oz",
-  },
-};
+      <section class="section-band" id="arc">
+        <div class="page-shell">
+          <div class="bucket-heading">
+            <div>
+              <p class="eyebrow">Bucket 03</p>
+              <h2>Arc</h2>
+              <p class="section-summary">Arc and developer infrastructure products that reduce blockchain complexity, unify USDC liquidity, and help teams ship stablecoin-native experiences.</p>
+            </div>
+            <div class="bucket-count"><strong id="arcCount">0</strong>Products</div>
+          </div>
+          <div id="arcGrid" class="product-grid"></div>
+        </div>
+      </section>
 
-const HAIRCUT_BUCKETS = [
-  { name: "U.S. Treasury Bills", value: 122_325_714_946 },
-  { name: "Overnight Reverse Repo", value: 19_279_408_559 },
-  { name: "Term Reverse Repo", value: 5_548_439_332 },
-  { name: "Secured loans", value: 17_043_516_665 },
-  { name: "Other investments", value: 2_762_856_288 },
-  { name: "Corporate bonds", value: 3_031_239 },
-  { name: "Cash & bank deposits", value: 33_952_735 },
-];
-
-Object.values(PRICED_EXPOSURES).forEach((exposure) => {
-  exposure.units = exposure.reportValue / exposure.reportPrice;
-});
-
-const state = {
-  theme: "dark",
-  prices: {
-    BTC: {
-      price: PRICED_EXPOSURES.BTC.fallbackPrice,
-      updatedAt: PRICED_EXPOSURES.BTC.fallbackUpdatedAt,
-      source: "fallback",
-    },
-    XAU: {
-      price: PRICED_EXPOSURES.XAU.fallbackPrice,
-      updatedAt: PRICED_EXPOSURES.XAU.fallbackUpdatedAt,
-      source: "fallback",
-    },
-  },
-};
-
-const currency0 = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-  maximumFractionDigits: 0,
-});
-
-const currency2 = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2,
-});
-
-const percent2 = new Intl.NumberFormat("en-US", {
-  style: "percent",
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2,
-});
-
-const number0 = new Intl.NumberFormat("en-US", {
-  maximumFractionDigits: 0,
-});
-
-const number2 = new Intl.NumberFormat("en-US", {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2,
-});
-
-const dom = {
-  reportedAssetsValue: document.getElementById("reportedAssetsValue"),
-  reportedLiabilitiesValue: document.getElementById("reportedLiabilitiesValue"),
-  liveEquityValue: document.getElementById("liveEquityValue"),
-  coverageRatioValue: document.getElementById("coverageRatioValue"),
-  historyChart: document.getElementById("historyChart"),
-  historySummary: document.getElementById("historySummary"),
-  reserveBreakdown: document.getElementById("reserveBreakdown"),
-  reportDateLabel: document.getElementById("reportDateLabel"),
-  btcDeltaValue: document.getElementById("btcDeltaValue"),
-  goldDeltaValue: document.getElementById("goldDeltaValue"),
-  btcLivePrice: document.getElementById("btcLivePrice"),
-  goldLivePrice: document.getElementById("goldLivePrice"),
-  liveAssetsValue: document.getElementById("liveAssetsValue"),
-  headroomValue: document.getElementById("headroomValue"),
-  thresholdTableBody: document.getElementById("thresholdTableBody"),
-  haircutTableBody: document.getElementById("haircutTableBody"),
-  priceStatus: document.getElementById("priceStatus"),
-  themeButtons: document.querySelectorAll("[data-theme-value]"),
-  refreshButton: document.getElementById("refreshButton"),
-  btcRange: document.getElementById("btcRange"),
-  btcInput: document.getElementById("btcInput"),
-  goldRange: document.getElementById("goldRange"),
-  goldInput: document.getElementById("goldInput"),
-  btcThresholdHint: document.getElementById("btcThresholdHint"),
-  goldThresholdHint: document.getElementById("goldThresholdHint"),
-  scenarioAssetsValue: document.getElementById("scenarioAssetsValue"),
-  scenarioEquityValue: document.getElementById("scenarioEquityValue"),
-  scenarioCoverageValue: document.getElementById("scenarioCoverageValue"),
-  scenarioStatusValue: document.getElementById("scenarioStatusValue"),
-  scenarioStatusNote: document.getElementById("scenarioStatusNote"),
-};
-
-const THEME_STORAGE_KEY = "tether-reserve-stress-theme";
-
-function formatUsd(value, digits = 0) {
-  return digits === 0 ? currency0.format(value) : currency2.format(value);
-}
-
-function formatCompactUsd(value) {
-  const abs = Math.abs(value);
-  if (abs >= 1_000_000_000) {
-    return `${value < 0 ? "-" : ""}${currency2.format(abs / 1_000_000_000).replace("$", "$")}B`;
-  }
-  if (abs >= 1_000_000) {
-    return `${value < 0 ? "-" : ""}${currency2.format(abs / 1_000_000).replace("$", "$")}M`;
-  }
-  return formatUsd(value);
-}
-
-function formatUnitCount(value, unitLabel) {
-  if (unitLabel === "BTC") {
-    return `${number2.format(value)} BTC`;
-  }
-  return `${number0.format(value)} oz`;
-}
-
-function calculateLiveState(prices) {
-  const btcLiveValue = PRICED_EXPOSURES.BTC.units * prices.BTC.price;
-  const goldLiveValue = PRICED_EXPOSURES.XAU.units * prices.XAU.price;
-  const btcDelta = btcLiveValue - PRICED_EXPOSURES.BTC.reportValue;
-  const goldDelta = goldLiveValue - PRICED_EXPOSURES.XAU.reportValue;
-  const assets = REPORT.assets + btcDelta + goldDelta;
-  const equity = assets - REPORT.liabilities;
-
-  return {
-    assets,
-    equity,
-    coverageRatio: assets / REPORT.liabilities,
-    btcLiveValue,
-    goldLiveValue,
-    btcDelta,
-    goldDelta,
-  };
-}
-
-function calculateThreshold(currentPrice, units, equity) {
-  if (equity <= 0) {
-    return {
-      breached: true,
-      thresholdPrice: currentPrice,
-      dropPct: 0,
-      equityAtZero: equity - currentPrice * units,
-    };
-  }
-
-  const thresholdPrice = currentPrice - equity / units;
-  const equityAtZero = equity - currentPrice * units;
-
-  if (thresholdPrice <= 0) {
-    return {
-      breached: false,
-      thresholdPrice: 0,
-      dropPct: 1,
-      equityAtZero,
-      noPositiveThreshold: true,
-    };
-  }
-
-  return {
-    breached: false,
-    thresholdPrice,
-    dropPct: 1 - thresholdPrice / currentPrice,
-    equityAtZero,
-    noPositiveThreshold: false,
-  };
-}
-
-function calculateScenario(prices) {
-  const btcValue = PRICED_EXPOSURES.BTC.units * prices.BTC;
-  const goldValue = PRICED_EXPOSURES.XAU.units * prices.XAU;
-  const assets =
-    REPORT.assets -
-    PRICED_EXPOSURES.BTC.reportValue -
-    PRICED_EXPOSURES.XAU.reportValue +
-    btcValue +
-    goldValue;
-  const equity = assets - REPORT.liabilities;
-
-  return {
-    assets,
-    equity,
-    coverageRatio: assets / REPORT.liabilities,
-  };
-}
-
-function buildHistorySeries(liveState) {
-  const officialPoints = HISTORICAL_REPORTS.map((report) => {
-    const equity = report.assets - report.liabilities;
-    return {
-      label: report.label,
-      date: report.date,
-      type: report.sourceType,
-      assets: report.assets,
-      liabilities: report.liabilities,
-      equity,
-      cushionPct: (equity / report.liabilities) * 100,
-      coveragePct: (report.assets / report.liabilities) * 100,
-      note: "Official quarter-end report",
-    };
-  });
-
-  officialPoints.push({
-    label: "Now",
-    date: new Date().toISOString().slice(0, 10),
-    type: "modeled",
-    assets: liveState.assets,
-    liabilities: REPORT.liabilities,
-    equity: liveState.equity,
-    cushionPct: (liveState.equity / REPORT.liabilities) * 100,
-    coveragePct: (liveState.assets / REPORT.liabilities) * 100,
-    note: "Q4 2025 liabilities with BTC and gold re-marked live",
-  });
-
-  return officialPoints;
-}
-
-function formatShortDate(dateString) {
-  return new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  }).format(new Date(`${dateString}T00:00:00Z`));
-}
-
-function renderHistorySummary(series) {
-  dom.historySummary.innerHTML = "";
-
-  series.forEach((point) => {
-    const card = document.createElement("article");
-    card.className = `history-card ${point.type}`;
-    card.innerHTML = `
-      <p class="history-card-label">${point.label}</p>
-      <p class="history-card-date">${formatShortDate(point.date)} | ${
-        point.type === "official" ? "Official" : "Modeled"
-      }</p>
-      <h4 class="history-card-value">${number2.format(point.cushionPct)}%</h4>
-      <p class="history-card-note">Equity / liabilities cushion</p>
-      <p class="history-card-detail">Assets / liabilities: ${number2.format(point.coveragePct)}%</p>
-      <p class="history-card-detail">Equity: ${formatCompactUsd(point.equity)}</p>
-    `;
-    dom.historySummary.appendChild(card);
-  });
-}
-
-function renderHistoryChart(series) {
-  if (!dom.historyChart) {
-    return;
-  }
-
-  const width = 960;
-  const height = 360;
-  const margin = { top: 28, right: 28, bottom: 72, left: 64 };
-  const chartWidth = width - margin.left - margin.right;
-  const chartHeight = height - margin.top - margin.bottom;
-  const threshold = 3;
-  const yValues = [...series.map((point) => point.cushionPct), threshold];
-  const minY = Math.max(0, Math.floor(Math.min(...yValues) * 10) / 10 - 0.2);
-  const maxY = Math.ceil(Math.max(...yValues) * 10) / 10 + 0.2;
-  const xStep = chartWidth / Math.max(1, series.length - 1);
-
-  const scaleY = (value) => margin.top + ((maxY - value) / (maxY - minY)) * chartHeight;
-  const baselineY = margin.top + chartHeight;
-
-  const points = series.map((point, index) => ({
-    ...point,
-    x: margin.left + index * xStep,
-    y: scaleY(point.cushionPct),
-  }));
-
-  const officialPoints = points.filter((point) => point.type === "official");
-  const modeledPoint = points.find((point) => point.type === "modeled");
-  const officialPath = officialPoints
-    .map((point, index) => `${index === 0 ? "M" : "L"} ${point.x.toFixed(2)} ${point.y.toFixed(2)}`)
-    .join(" ");
-  const fullPath = points
-    .map((point, index) => `${index === 0 ? "M" : "L"} ${point.x.toFixed(2)} ${point.y.toFixed(2)}`)
-    .join(" ");
-  const areaPath = `${fullPath} L ${points.at(-1).x.toFixed(2)} ${baselineY.toFixed(2)} L ${points[0].x.toFixed(
-    2,
-  )} ${baselineY.toFixed(2)} Z`;
-
-  const tickCount = 5;
-  const ticks = Array.from({ length: tickCount }, (_, index) => minY + ((maxY - minY) / (tickCount - 1)) * index);
-  const thresholdY = scaleY(threshold);
-
-  dom.historyChart.innerHTML = `
-    <defs>
-      <linearGradient id="historyAreaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stop-color="var(--reserve-fill-start)" stop-opacity="0.24"></stop>
-        <stop offset="100%" stop-color="var(--reserve-fill-start)" stop-opacity="0"></stop>
-      </linearGradient>
-    </defs>
-    ${ticks
-      .map(
-        (tick) => `
-          <line class="chart-grid-line" x1="${margin.left}" y1="${scaleY(tick)}" x2="${width - margin.right}" y2="${scaleY(
-            tick,
-          )}"></line>
-          <text class="chart-axis-label" x="${margin.left - 12}" y="${scaleY(tick) + 4}" text-anchor="end">${number2.format(
-            tick,
-          )}%</text>
-        `,
-      )
-      .join("")}
-    <line class="chart-grid-line threshold" x1="${margin.left}" y1="${thresholdY}" x2="${width - margin.right}" y2="${thresholdY}"></line>
-    <text class="chart-threshold-label" x="${width - margin.right}" y="${thresholdY - 8}" text-anchor="end">3.00% alert threshold</text>
-    <line class="chart-axis-line" x1="${margin.left}" y1="${baselineY}" x2="${width - margin.right}" y2="${baselineY}"></line>
-    <path class="chart-area" d="${areaPath}" fill="url(#historyAreaGradient)"></path>
-    <path class="chart-line" d="${officialPath}"></path>
-    <path class="chart-line modeled" d="M ${officialPoints.at(-1).x.toFixed(2)} ${officialPoints
-      .at(-1)
-      .y.toFixed(2)} L ${modeledPoint.x.toFixed(2)} ${modeledPoint.y.toFixed(2)}"></path>
-    ${points
-      .map(
-        (point) => `
-          <circle class="chart-point ${point.type}" cx="${point.x}" cy="${point.y}" r="${point.type === "modeled" ? 7 : 6}"></circle>
-          <text class="chart-point-label" x="${point.x}" y="${point.y - 14}">${number2.format(point.cushionPct)}%</text>
-          <text class="chart-x-label" x="${point.x}" y="${baselineY + 22}">${point.label}</text>
-          <text class="chart-x-label" x="${point.x}" y="${baselineY + 40}">${formatShortDate(point.date)}</text>
-        `,
-      )
-      .join("")}
-  `;
-}
-
-function renderHistory(liveState) {
-  const series = buildHistorySeries(liveState);
-  renderHistoryChart(series);
-  renderHistorySummary(series);
-}
-
-function renderReserveBreakdown() {
-  dom.reserveBreakdown.innerHTML = "";
-
-  REPORT.reserveBuckets.forEach((bucket) => {
-    const percentage = bucket.value / REPORT.assets;
-    const row = document.createElement("div");
-    row.className = "reserve-row";
-    row.innerHTML = `
-      <div class="reserve-label-wrap">
-        <span class="reserve-label">${bucket.name}</span>
-        <span class="reserve-detail">${bucket.detail}</span>
+      <div class="page-shell">
+        <div id="emptyState" class="empty-state">No product cards match the current filter.</div>
       </div>
-      <div class="reserve-bar"><span style="width:${(percentage * 100).toFixed(2)}%"></span></div>
-      <div class="reserve-value">${formatCompactUsd(bucket.value)} <span class="reserve-detail">(${percent2.format(percentage)})</span></div>
-    `;
-    dom.reserveBreakdown.appendChild(row);
-  });
+
+      <section class="section-band" id="sources">
+        <div class="page-shell">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow">Sources</p>
+              <h2>What this dashboard is grounded in</h2>
+            </div>
+            <p class="section-summary">Product names, status, packaging, and audience definitions come from internal sources. Public claims and token wording are checked against official Circle pages.</p>
+          </div>
+
+          <div class="source-grid">
+            <article class="source-card">
+              <h3>Circle Product Book</h3>
+              <p><a href="https://docs.google.com/document/d/1aBGKFLUylTK4ZcoKMhqqJM5E93vD0wFf3WuPFGAOKt4/edit?tab=t.0" target="_blank" rel="noreferrer">Internal product catalog</a> for availability, packaging, and product descriptions.</p>
+            </article>
+            <article class="source-card">
+              <h3>Audience Segmentation</h3>
+              <p><a href="https://coda.io/d/Strategy-Product-Marketing-S-PMM-Hub_dFDp1UBBf0-/Audience-Segmentation_suQwq6oR" target="_blank" rel="noreferrer">Internal audience framework</a> for trading services, collateral management, distribution, and use-case definitions.</p>
+            </article>
+            <article class="source-card">
+              <h3>Official Circle Pages</h3>
+              <p><a href="https://www.circle.com/usdc" target="_blank" rel="noreferrer">USDC</a>, <a href="https://www.circle.com/eurc" target="_blank" rel="noreferrer">EURC</a>, <a href="https://www.circle.com/mint" target="_blank" rel="noreferrer">Mint</a>, <a href="https://www.circle.com/cpn" target="_blank" rel="noreferrer">CPN</a>, <a href="https://www.arc.io" target="_blank" rel="noreferrer">Arc</a>, and product pages linked from each card.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+const SOURCES = {
+  productBook: {
+    label: "Product Book",
+    url: "https://docs.google.com/document/d/1aBGKFLUylTK4ZcoKMhqqJM5E93vD0wFf3WuPFGAOKt4/edit?tab=t.0",
+  },
+  audience: {
+    label: "Audience Segmentation",
+    url: "https://coda.io/d/Strategy-Product-Marketing-S-PMM-Hub_dFDp1UBBf0-/Audience-Segmentation_suQwq6oR",
+  },
+  usdc: { label: "circle.com/usdc", url: "https://www.circle.com/usdc" },
+  eurc: { label: "circle.com/eurc", url: "https://www.circle.com/eurc" },
+  transparency: { label: "Circle Transparency", url: "https://www.circle.com/transparency" },
+  mint: { label: "circle.com/mint", url: "https://www.circle.com/mint" },
+  cpn: { label: "circle.com/cpn", url: "https://www.circle.com/cpn" },
+  stablefx: { label: "circle.com/stablefx", url: "https://www.circle.com/stablefx" },
+  usyc: { label: "circle.com/usyc", url: "https://www.circle.com/usyc" },
+  xreserve: { label: "circle.com/xreserve", url: "https://www.circle.com/xreserve" },
+  arc: { label: "arc.io", url: "https://www.arc.io" },
+  wallets: { label: "circle.com/wallets", url: "https://www.circle.com/wallets" },
+  contracts: { label: "circle.com/contracts", url: "https://www.circle.com/contracts" },
+  paymaster: { label: "circle.com/paymaster", url: "https://www.circle.com/paymaster" },
+  cctp: { label: "circle.com/cctp", url: "https://www.circle.com/cctp" },
+  gateway: { label: "circle.com/gateway", url: "https://www.circle.com/gateway" },
+};
+
+const PRODUCTS = [
+  {
+    bucket: "payments",
+    name: "Circle Payments Network",
+    category: "Payments",
+    availability: "GA",
+    summary: "A stablecoin-native payment network connecting vetted financial institutions for cross-border fiat payouts and stablecoin settlement.",
+    exchange: "Adds global payout and off-ramp corridors without building country-by-country banking and partner integrations.",
+    custodian: "Lets custody clients move from held digital assets into local fiat payout flows through a governed network.",
+    sources: ["cpn", "productBook", "audience"],
+    icon: "CPN",
+  },
+  {
+    bucket: "payments",
+    name: "CPN Managed Payments",
+    category: "Payments",
+    availability: "Limited",
+    summary: "A managed stablecoin settlement solution where Circle abstracts custody, compliance, and onchain operations for institutions.",
+    exchange: "Gives enterprise partners stablecoin settlement benefits while minimizing direct operational burden for regulated fiat flows.",
+    custodian: "Creates a path to offer clients stablecoin-enabled payments while Circle handles more of the operating model.",
+    sources: ["cpn", "productBook"],
+    icon: "MP",
+  },
+  {
+    bucket: "payments",
+    name: "StableFX",
+    category: "FX",
+    availability: "Beta",
+    summary: "An institutional stablecoin FX engine using RFQ execution and onchain settlement for stablecoin currency pairs.",
+    exchange: "Supports 24/7 stablecoin FX markets, tighter pair coverage, and programmable settlement for USDC, EURC, and local stablecoins.",
+    custodian: "Helps rebalance client stablecoin inventory across currencies with transparent execution and lower settlement risk.",
+    sources: ["stablefx", "productBook"],
+    icon: "FX",
+  },
+  {
+    bucket: "digital",
+    name: "USDC",
+    category: "Stablecoins",
+    availability: "GA",
+    summary: "Circle's fully reserved digital dollar, redeemable 1:1 for US dollars and natively supported across broad blockchain coverage.",
+    exchange: "Core quote, funding, settlement, and collateral asset for trusted dollar markets and user balances.",
+    custodian: "A regulated, transparent dollar asset to custody, settle, report, and use as client collateral.",
+    sources: ["usdc", "transparency", "productBook", "audience"],
+    icon: "USDC",
+  },
+  {
+    bucket: "digital",
+    name: "EURC",
+    category: "Stablecoins",
+    availability: "GA",
+    summary: "Circle's euro stablecoin, redeemable 1:1 for euro, MiCA-compliant, and designed for multi-chain euro liquidity.",
+    exchange: "Enables euro-denominated pairs, EUR to USDC flows, and 24/7 FX/trading services for European users.",
+    custodian: "Adds a regulated euro stablecoin custody and settlement option for clients with euro treasury needs.",
+    sources: ["eurc", "transparency", "productBook", "audience"],
+    icon: "EURC",
+  },
+  {
+    bucket: "digital",
+    name: "USYC",
+    category: "Tokenized Funds",
+    availability: "GA",
+    summary: "A tokenized money market fund representing Hashnote International Short Duration Yield Fund exposure, with near-instant USDC redemptions up to capacity.",
+    exchange: "Creates yield-bearing collateral and margin utility while keeping capital close to 24/7 trading workflows.",
+    custodian: "Supports off-exchange collateral and productive client treasury balances with onchain visibility.",
+    sources: ["usyc", "productBook", "audience"],
+    icon: "Y",
+  },
+  {
+    bucket: "digital",
+    name: "Circle Mint",
+    category: "Liquidity Services",
+    availability: "GA",
+    summary: "Institutional access to mint, redeem, hold, and transfer USDC and EURC through Circle.",
+    exchange: "Primary source of stablecoin liquidity for listings, user conversions, treasury, and redemption flows.",
+    custodian: "Provides direct 1:1 conversion rails between fiat and Circle stablecoins for client operations.",
+    sources: ["mint", "productBook", "audience"],
+    icon: "M",
+  },
+  {
+    bucket: "digital",
+    name: "Core API",
+    category: "Liquidity Services",
+    availability: "GA",
+    summary: "APIs for automating Circle Mint finance workflows, including minting, redeeming, transfers, and operational reporting.",
+    exchange: "Automates treasury movements, USDC inventory management, and high-volume stablecoin operations.",
+    custodian: "Connects stablecoin movement to custody operations, reporting, and client workflows without manual console work.",
+    sources: ["mint", "productBook"],
+    icon: "API",
+  },
+  {
+    bucket: "digital",
+    name: "Core API for Institutions",
+    category: "Liquidity Services",
+    availability: "GA",
+    summary: "Institutional subaccount capabilities for scaled distribution and account structures.",
+    exchange: "Supports partner, market-maker, or institutional client structures that need controlled subaccounts.",
+    custodian: "Maps client or strategy-level balances into cleaner operational structures for service delivery.",
+    sources: ["productBook"],
+    icon: "IA",
+  },
+  {
+    bucket: "digital",
+    name: "Express",
+    category: "Liquidity Services",
+    availability: "GA",
+    summary: "A UI-driven way to convert cash to USDC or EURC and send it to a wallet of choice.",
+    exchange: "Useful for operations teams that need quick stablecoin funding without building a custom flow.",
+    custodian: "Supports controlled manual treasury movements for client requests, pilots, or exception handling.",
+    sources: ["productBook"],
+    icon: "EX",
+  },
+  {
+    bucket: "digital",
+    name: "Deposits",
+    category: "Liquidity Services",
+    availability: "GA",
+    summary: "API support for topping up a single permanent blockchain deposit address with USDC or EURC.",
+    exchange: "Simplifies stablecoin inflows when the exchange maintains its own internal user ledger.",
+    custodian: "Creates stable operational funding addresses for omnibus or client-side balance management.",
+    sources: ["productBook"],
+    icon: "D",
+  },
+  {
+    bucket: "digital",
+    name: "Payouts",
+    category: "Liquidity Services",
+    availability: "GA",
+    summary: "Programmatic crypto payouts in USDC and EURC from Circle Mint-connected balances.",
+    exchange: "Powers scaled user withdrawals, rewards, rebates, and institutional disbursements.",
+    custodian: "Enables controlled disbursements from custody or treasury workflows to client wallets.",
+    sources: ["productBook"],
+    icon: "PO",
+  },
+  {
+    bucket: "digital",
+    name: "Local Currency On/Offramps",
+    category: "Liquidity Services",
+    availability: "GA",
+    summary: "Mint and redeem USDC or EURC using supported local currencies through Circle Mint UI or APIs.",
+    exchange: "Improves regional funding and redemption coverage for markets where local fiat access drives adoption.",
+    custodian: "Helps clients move between local fiat exposure and stablecoin balances without separate providers.",
+    sources: ["mint", "productBook", "audience"],
+    icon: "LC",
+  },
+  {
+    bucket: "digital",
+    name: "Settlement Advance",
+    category: "Liquidity Services",
+    availability: "GA",
+    summary: "Approved customers can receive USDC before wired funds settle after providing wire confirmation.",
+    exchange: "Reduces funding latency so exchange liquidity can arrive before banking settlement catches up.",
+    custodian: "Improves time-sensitive settlement for institutional clients waiting on wire completion.",
+    sources: ["productBook"],
+    icon: "SA",
+  },
+  {
+    bucket: "digital",
+    name: "Line of Credit",
+    category: "Liquidity Services",
+    availability: "GA",
+    summary: "A short-term USDC credit line for approved customers with repayment windows defined by the product.",
+    exchange: "Bridges liquidity gaps for market-making, customer demand spikes, or prefunding needs.",
+    custodian: "Provides optional financing to support client settlement or collateral movements without forced asset sales.",
+    sources: ["productBook"],
+    icon: "LOC",
+  },
+  {
+    bucket: "digital",
+    name: "xReserve",
+    category: "Liquidity Services",
+    availability: "GA",
+    summary: "Infrastructure that helps selected blockchain teams launch USDC-backed stablecoins connected to USDC liquidity.",
+    exchange: "Creates more native-like stablecoin inventory to list and route while preserving 1:1 USDC connectivity.",
+    custodian: "Adds support paths for partner-chain stablecoins backed by USDC and integrated with Circle interoperability.",
+    sources: ["xreserve", "productBook"],
+    icon: "XR",
+  },
+  {
+    bucket: "arc",
+    name: "Arc",
+    category: "Arc",
+    availability: "Beta",
+    summary: "A stablecoin-native Layer 1 purpose-built for real-world financial flows, predictable USDC-denominated fees, and deterministic settlement.",
+    exchange: "A potential settlement and trading rail for stablecoin FX, collateral, and capital markets workflows.",
+    custodian: "A purpose-built network for custody, settlement, tokenized assets, and client reporting where finality and predictable fees matter.",
+    sources: ["arc", "productBook"],
+    icon: "A",
+  },
+  {
+    bucket: "arc",
+    name: "Wallets",
+    category: "Developer Tools",
+    availability: "Beta",
+    summary: "APIs and SDKs for flexible wallet infrastructure, including user-controlled and developer-controlled wallet models.",
+    exchange: "Speeds wallet creation, app onboarding, and embedded blockchain features for users or internal operations.",
+    custodian: "Supports enterprise wallet workflows and client-facing wallet experiences with configurable key models.",
+    sources: ["wallets", "productBook", "audience"],
+    icon: "W",
+  },
+  {
+    bucket: "arc",
+    name: "3P Key Management",
+    category: "Developer Tools",
+    availability: "GA",
+    summary: "A wallet infrastructure option for customers to connect existing third-party or self-custody key management.",
+    exchange: "Lets an exchange use Circle infrastructure while keeping keys aligned to an existing custody model.",
+    custodian: "Especially relevant to custodians because it preserves client control and reduces Circle counterparty exposure.",
+    sources: ["wallets", "productBook"],
+    icon: "3P",
+  },
+  {
+    bucket: "arc",
+    name: "Gas Station",
+    category: "Developer Tools",
+    availability: "Beta",
+    summary: "A Circle Wallets feature that lets developers sponsor blockchain network fees for users.",
+    exchange: "Improves deposit, withdrawal, and onchain action UX by removing native gas-token friction.",
+    custodian: "Lets custodians abstract network fees for clients and standardize billing or service packages.",
+    sources: ["wallets", "productBook"],
+    icon: "G",
+  },
+  {
+    bucket: "arc",
+    name: "Compliance Engine",
+    category: "Developer Tools",
+    availability: "Beta",
+    summary: "Policy and transaction screening controls that help automate compliance decisions for Circle Wallets.",
+    exchange: "Adds configurable screening and policy enforcement around high-volume user transactions.",
+    custodian: "Supports risk controls, wallet policy checks, and transaction monitoring for institutional client flows.",
+    sources: ["wallets", "productBook"],
+    icon: "CE",
+  },
+  {
+    bucket: "arc",
+    name: "Signing Service",
+    category: "Developer Tools",
+    availability: "Beta",
+    summary: "Signing capabilities for transactions, messages, or typed data across supported chains.",
+    exchange: "Useful for controlled hot-wallet operations, listing workflows, and multichain transaction orchestration.",
+    custodian: "A clean signing layer for custody operations that need policy-bound transaction execution.",
+    sources: ["wallets", "productBook"],
+    icon: "SS",
+  },
+  {
+    bucket: "arc",
+    name: "Contracts",
+    category: "Developer Tools",
+    availability: "Beta",
+    summary: "Tools to deploy, manage, and monitor smart contracts using templates and a developer console.",
+    exchange: "Accelerates token, rewards, loyalty, or automated trading-service features that require smart contracts.",
+    custodian: "Supports tokenization, controlled contract operations, and client asset workflows from a managed surface.",
+    sources: ["contracts", "productBook", "audience"],
+    icon: "C",
+  },
+  {
+    bucket: "arc",
+    name: "Paymaster",
+    category: "Developer Tools",
+    availability: "GA",
+    summary: "A permissionless utility that enables users to pay gas fees in USDC instead of native chain tokens.",
+    exchange: "Lets users withdraw or transact with USDC without first sourcing ETH, MATIC, or another native gas asset.",
+    custodian: "Simplifies client operations and accounting by making USDC the fee asset for supported onchain actions.",
+    sources: ["paymaster", "productBook", "audience"],
+    icon: "PM",
+  },
+  {
+    bucket: "arc",
+    name: "App Kit",
+    category: "App Kits",
+    availability: "GA",
+    summary: "A curated SDK suite for common USDC app actions such as send, bridge, and swap.",
+    exchange: "Helps ship stablecoin-powered product features faster without stitching together multiple primitives.",
+    custodian: "Creates client-facing workflows for moving, swapping, or bridging supported assets with less custom build.",
+    sources: ["productBook"],
+    icon: "AK",
+  },
+  {
+    bucket: "arc",
+    name: "Bridge Kit",
+    category: "App Kits",
+    availability: "GA",
+    summary: "A focused SDK for bridge experiences within Circle's app kit family.",
+    exchange: "Gives users more chain coverage and smoother crosschain USDC movement from the exchange app.",
+    custodian: "Lets clients request crosschain movement without a bespoke bridge integration for each route.",
+    sources: ["productBook"],
+    icon: "BK",
+  },
+  {
+    bucket: "arc",
+    name: "Swap Kit",
+    category: "App Kits",
+    availability: "GA",
+    summary: "A focused SDK for swap experiences within Circle's app kit family.",
+    exchange: "Adds embedded swap UX around USDC flows, helping keep users in the exchange product surface.",
+    custodian: "Supports client treasury rebalancing and asset conversion workflows from a custody portal.",
+    sources: ["productBook"],
+    icon: "SK",
+  },
+  {
+    bucket: "arc",
+    name: "CCTP",
+    category: "Interoperability",
+    availability: "GA",
+    summary: "Cross-Chain Transfer Protocol moves native USDC 1:1 between blockchains through burn-and-mint infrastructure.",
+    exchange: "Reduces fragmented USDC inventory and improves deposits, withdrawals, and treasury rebalancing across chains.",
+    custodian: "Moves client USDC between supported chains without wrapped-asset bridge risk or liquidity pools.",
+    sources: ["cctp", "productBook", "audience"],
+    icon: "CT",
+  },
+  {
+    bucket: "arc",
+    name: "Gateway",
+    category: "Interoperability",
+    availability: "GA",
+    summary: "A unified USDC balance that can be accessed instantly across supported chains after funds are deposited to Gateway.",
+    exchange: "Meets withdrawal demand on many chains without idle per-chain inventory or bridge infrastructure.",
+    custodian: "Offers clients seamless crosschain USDC access while simplifying internal inventory management.",
+    sources: ["gateway", "productBook", "audience"],
+    icon: "GW",
+  },
+  {
+    bucket: "arc",
+    name: "Nanopayments",
+    category: "Agent Stack",
+    availability: "GA",
+    summary: "A Gateway-powered capability for gas-free, sub-cent USDC transfers with batched settlement patterns.",
+    exchange: "Can power micro-rewards, fee rebates, API usage payments, or low-value settlement flows at scale.",
+    custodian: "Enables tiny client or agent payments without making each transfer operationally expensive.",
+    sources: ["productBook"],
+    icon: "NP",
+  },
+  {
+    bucket: "arc",
+    name: "Circle Skills",
+    category: "Agent Stack",
+    availability: "GA",
+    summary: "A curated library that guides AI agents to build accurately with USDC, wallets, crosschain transfers, and contracts.",
+    exchange: "Helps internal and partner developer agents integrate Circle products with fewer implementation mistakes.",
+    custodian: "Supports agent-assisted custody integrations, operational tooling, and client workflow prototypes.",
+    sources: ["productBook"],
+    icon: "CS",
+  },
+  {
+    bucket: "arc",
+    name: "Agent Wallets",
+    category: "Agent Stack",
+    availability: "GA",
+    summary: "Wallets that let agents hold and move funds autonomously within predefined policies.",
+    exchange: "Supports agentic trading, treasury, market operations, or automation under defined controls.",
+    custodian: "Creates policy-bound agent wallets for client operations where autonomous movement must remain governed.",
+    sources: ["productBook"],
+    icon: "AW",
+  },
+  {
+    bucket: "arc",
+    name: "CLI",
+    category: "Agent Stack",
+    availability: "GA",
+    summary: "A command-line control plane for deterministic agent-native wallet, policy, service discovery, and transaction orchestration.",
+    exchange: "Gives ops and engineering teams precise commands for repeatable onchain workflows and agent execution.",
+    custodian: "Useful for auditable automation and controlled operational runbooks around wallet and transaction actions.",
+    sources: ["productBook"],
+    icon: "CL",
+  },
+  {
+    bucket: "arc",
+    name: "Agent Marketplace",
+    category: "Agent Stack",
+    availability: "GA",
+    summary: "A service directory where agents can discover, evaluate, and pay for services using USDC.",
+    exchange: "Creates a future channel for agent-driven services, data, and API monetization settled in USDC.",
+    custodian: "Supports future client-agent workflows where vetted services can be discovered and paid for programmatically.",
+    sources: ["productBook"],
+    icon: "AM",
+  },
+];
+
+const gridByBucket = {
+  payments: document.getElementById("paymentsGrid"),
+  digital: document.getElementById("digitalGrid"),
+  arc: document.getElementById("arcGrid"),
+};
+
+const countByBucket = {
+  payments: document.getElementById("paymentsCount"),
+  digital: document.getElementById("digitalCount"),
+  arc: document.getElementById("arcCount"),
+};
+
+function sourceLinks(keys) {
+  return keys
+    .map((key) => {
+      const source = SOURCES[key];
+      return `<a class="source-link" href="${source.url}" target="_blank" rel="noreferrer">${source.label}</a>`;
+    })
+    .join("");
 }
 
-function renderHaircutTable(liveState) {
-  dom.haircutTableBody.innerHTML = "";
-
-  HAIRCUT_BUCKETS.forEach((bucket) => {
-    const requiredHaircut = liveState.equity / bucket.value;
-    const couldBreach = bucket.value > liveState.equity;
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${bucket.name}</td>
-      <td>${formatCompactUsd(bucket.value)}</td>
-      <td>${couldBreach ? percent2.format(requiredHaircut) : ">100%"}</td>
-      <td class="${couldBreach ? "danger-text" : "success-text"}">
-        ${couldBreach ? "Yes, if that bucket were impaired enough" : "No, even a full write-down would still leave equity"}
-      </td>
-    `;
-    dom.haircutTableBody.appendChild(row);
-  });
-}
-
-function renderThresholdTable(liveState) {
-  dom.thresholdTableBody.innerHTML = "";
-
-  ["BTC", "XAU"].forEach((symbol) => {
-    const exposure = PRICED_EXPOSURES[symbol];
-    const livePrice = state.prices[symbol].price;
-    const liveValue = exposure.units * livePrice;
-    const threshold = calculateThreshold(livePrice, exposure.units, liveState.equity);
-    const dropLabel = threshold.noPositiveThreshold
-      ? "More than 100%"
-      : `${formatUsd(livePrice - threshold.thresholdPrice, 2)} (${percent2.format(threshold.dropPct)})`;
-
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${exposure.label}</td>
-      <td>${formatUnitCount(exposure.units, exposure.unitLabel)}</td>
-      <td>${formatUsd(livePrice, 2)}</td>
-      <td>${formatCompactUsd(liveValue)}</td>
-      <td>${threshold.noPositiveThreshold ? "No positive breach price" : formatUsd(threshold.thresholdPrice, 2)}</td>
-      <td>${dropLabel}</td>
-      <td class="${threshold.equityAtZero < 0 ? "danger-text" : "success-text"}">${formatCompactUsd(threshold.equityAtZero)}</td>
-    `;
-    dom.thresholdTableBody.appendChild(row);
-  });
-}
-
-function renderHeadlineMetrics(liveState) {
-  dom.reportedAssetsValue.textContent = formatCompactUsd(REPORT.assets);
-  dom.reportedLiabilitiesValue.textContent = formatCompactUsd(REPORT.liabilities);
-  dom.liveEquityValue.textContent = formatCompactUsd(liveState.equity);
-  dom.liveEquityValue.className = liveState.equity >= 0 ? "" : "danger-text";
-  dom.coverageRatioValue.textContent = percent2.format(liveState.equity / REPORT.liabilities);
-
-  dom.reportDateLabel.textContent = `${REPORT.reportLabel}: Q4 2025 | as of ${REPORT.reportDate} | published ${REPORT.publicationDate}`;
-  dom.btcDeltaValue.textContent = formatCompactUsd(liveState.btcDelta);
-  dom.goldDeltaValue.textContent = formatCompactUsd(liveState.goldDelta);
-  dom.liveAssetsValue.textContent = formatCompactUsd(liveState.assets);
-  dom.headroomValue.textContent = formatCompactUsd(liveState.equity);
-
-  dom.btcDeltaValue.className = liveState.btcDelta >= 0 ? "success-text" : "danger-text";
-  dom.goldDeltaValue.className = liveState.goldDelta >= 0 ? "success-text" : "danger-text";
-  dom.headroomValue.className = liveState.equity >= 0 ? "success-text" : "danger-text";
-
-  dom.btcLivePrice.textContent = `${formatUsd(state.prices.BTC.price, 2)} | updated ${formatDateTime(state.prices.BTC.updatedAt)}`;
-  dom.goldLivePrice.textContent = `${formatUsd(state.prices.XAU.price, 2)} | updated ${formatDateTime(state.prices.XAU.updatedAt)}`;
-}
-
-function renderScenario(liveState) {
-  const btcThreshold = calculateThreshold(state.prices.BTC.price, PRICED_EXPOSURES.BTC.units, liveState.equity);
-  const goldThreshold = calculateThreshold(state.prices.XAU.price, PRICED_EXPOSURES.XAU.units, liveState.equity);
-
-  dom.btcRange.value = String(Math.round(state.prices.BTC.price));
-  dom.btcInput.value = state.prices.BTC.price.toFixed(2);
-  dom.goldRange.value = String(Math.round(state.prices.XAU.price));
-  dom.goldInput.value = state.prices.XAU.price.toFixed(2);
-
-  dom.btcThresholdHint.textContent = btcThreshold.noPositiveThreshold
-    ? "BTC alone cannot erase the cushion before hitting zero in this model."
-    : `Modeled breach price: ${formatUsd(btcThreshold.thresholdPrice, 2)}`;
-  dom.goldThresholdHint.textContent = goldThreshold.noPositiveThreshold
-    ? "Gold alone cannot erase the cushion before hitting zero in this model."
-    : `Modeled breach price: ${formatUsd(goldThreshold.thresholdPrice, 2)}`;
-
-  updateScenarioOutput();
-}
-
-function updateScenarioOutput() {
-  const scenario = calculateScenario({
-    BTC: Number(dom.btcInput.value),
-    XAU: Number(dom.goldInput.value),
-  });
-
-  dom.scenarioAssetsValue.textContent = formatCompactUsd(scenario.assets);
-  dom.scenarioEquityValue.textContent = formatCompactUsd(scenario.equity);
-  dom.scenarioEquityValue.className = scenario.equity >= 0 ? "success-text" : "danger-text";
-  dom.scenarioCoverageValue.textContent = percent2.format(scenario.equity / REPORT.liabilities);
-
-  if (scenario.equity >= 0) {
-    dom.scenarioStatusValue.textContent = "Assets still cover liabilities";
-    dom.scenarioStatusValue.className = "success-text";
-    dom.scenarioStatusNote.textContent = `${formatCompactUsd(scenario.equity)} of modeled equity remains.`;
-  } else {
-    dom.scenarioStatusValue.textContent = "Liabilities exceed assets";
-    dom.scenarioStatusValue.className = "danger-text";
-    dom.scenarioStatusNote.textContent = `${formatCompactUsd(Math.abs(scenario.equity))} of modeled deficit.`;
+function tokenMiniIcon(name) {
+  if (name === "USDC") {
+    return `
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M14.6409 8.04883H11.3778C10.2868 8.04883 9.40234 8.93329 9.40234 10.0243C9.40234 11.1154 10.2868 11.9998 11.3778 11.9998H13.1001C14.1911 11.9998 15.0756 12.8843 15.0756 13.9753C15.0756 15.0664 14.1911 15.9508 13.1001 15.9508H9.83699" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+        <path d="M12.2393 8.04942V6.73242" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+        <path d="M12.2393 17.2682V15.9512" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+        <path d="M9.36549 3C5.39708 4.06946 2.47656 7.69367 2.47656 12C2.47656 16.3063 5.39708 19.9305 9.36549 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+        <path d="M14.6335 3C18.6019 4.06946 21.5225 7.69367 21.5225 12C21.5225 16.3063 18.6019 19.9305 14.6335 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+      </svg>`;
   }
-}
 
-function formatDateTime(value) {
-  if (!value) {
-    return "unknown";
+  if (name === "EURC") {
+    return `
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M8.76696 13.2678C8.76696 13.2678 8.65527 12.591 8.65527 12.0997C8.65527 11.6084 8.76696 10.9316 8.76696 10.9316" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+        <path d="M9.38893 3C5.42052 4.06946 2.5 7.69367 2.5 12C2.5 16.3063 5.42052 19.9305 9.38893 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+        <path d="M14.657 3C18.6254 4.06946 21.5459 7.69367 21.5459 12C21.5459 16.3063 18.6254 19.9305 14.657 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.7397 8.4225C15.4716 8.91359 14.8765 9.08262 14.4105 8.80003C13.2313 8.08487 11.6996 8.26017 10.6929 9.32122C10.4806 9.54491 10.306 9.79255 10.1687 10.0559H12.4232C12.9071 10.0559 13.2993 10.4481 13.2993 10.9319C13.2993 11.4157 12.9071 11.8079 12.4232 11.8079H9.38911C9.19554 11.9377 8.95793 11.9962 8.71359 11.9551C8.57802 11.9323 8.45348 11.881 8.34459 11.8079H6.88191C6.39808 11.8079 6.00586 11.4157 6.00586 10.9319C6.00586 10.4481 6.39808 10.0559 6.88191 10.0559H8.06567C8.29938 9.25585 8.71663 8.50235 9.31628 7.87036C10.961 6.13691 13.4589 5.85557 15.3815 7.02162C15.8475 7.30421 16.0078 7.9314 15.7397 8.4225ZM11.8692 14.1441C12.3531 14.1441 12.7453 13.7519 12.7453 13.2681C12.7453 12.7842 12.3531 12.392 11.8692 12.392H9.38918C9.1956 12.2622 8.95797 12.2037 8.71359 12.2448C8.57799 12.2676 8.45342 12.3189 8.34452 12.392H6.88203C6.3982 12.392 6.00598 12.7842 6.00598 13.2681C6.00598 13.7519 6.3982 14.1441 6.88203 14.1441H8.06569C8.29939 14.9441 8.71665 15.6976 9.31628 16.3295C10.961 18.063 13.4589 18.3443 15.3815 17.1783C15.8475 16.8957 16.0078 16.2685 15.7397 15.7774C15.4716 15.2863 14.8765 15.1173 14.4105 15.3999C13.2313 16.115 11.6996 15.9397 10.6929 14.8787C10.4806 14.655 10.306 14.4074 10.1687 14.1441H11.8692Z" fill="currentColor"></path>
+      </svg>`;
   }
 
-  return new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-    timeZoneName: "short",
-  }).format(new Date(value));
+  return null;
 }
 
-function getInitialTheme() {
-  try {
-    const storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
-    if (storedTheme === "light" || storedTheme === "dark") {
-      return storedTheme;
+function renderProduct(product) {
+  const article = document.createElement("article");
+  article.className = "product-card";
+  article.dataset.bucket = product.bucket;
+  article.dataset.search = [
+    product.name,
+    product.category,
+    product.summary,
+    product.exchange,
+    product.custodian,
+  ].join(" ").toLowerCase();
+
+  const availabilityClass = product.availability.toLowerCase();
+  const miniIcon = tokenMiniIcon(product.icon);
+  const bucketIconClass = product.bucket === "payments" ? "payments" : product.bucket === "digital" ? "digital" : "arc";
+
+  article.innerHTML = `
+    <div class="product-top">
+      <div class="product-icon ${bucketIconClass}">${miniIcon || product.icon}</div>
+      <div>
+        <h3>${product.name}</h3>
+        <div class="meta-row">
+          <span class="pill">${product.category}</span>
+          <span class="pill ${availabilityClass}">${product.availability}</span>
+        </div>
+      </div>
+    </div>
+    <p class="summary">${product.summary}</p>
+    <div class="why-grid">
+      <div class="why-box" data-lens="exchange">
+        <strong>Exchange use</strong>
+        <p>${product.exchange}</p>
+      </div>
+      <div class="why-box" data-lens="custodian">
+        <strong>Custodian use</strong>
+        <p>${product.custodian}</p>
+      </div>
+    </div>
+    <div class="card-footer">${sourceLinks(product.sources)}</div>
+  `;
+
+  gridByBucket[product.bucket].appendChild(article);
+}
+
+function renderAllProducts() {
+  PRODUCTS.forEach(renderProduct);
+  document.getElementById("productCount").textContent = String(PRODUCTS.length);
+  Object.keys(countByBucket).forEach((bucket) => {
+    countByBucket[bucket].textContent = String(PRODUCTS.filter((product) => product.bucket === bucket).length);
+  });
+}
+
+function applyFilters() {
+  const query = document.getElementById("searchInput").value.trim().toLowerCase();
+  const activeAudience = document.querySelector(".filter-button.is-active").dataset.audience;
+  let visibleCount = 0;
+
+  document.querySelectorAll(".product-card").forEach((card) => {
+    const matchesQuery = !query || card.dataset.search.includes(query);
+    const showCard = matchesQuery;
+    card.classList.toggle("is-hidden", !showCard);
+    card.classList.toggle("single-lens", activeAudience !== "all");
+
+    card.querySelectorAll(".why-box").forEach((box) => {
+      const showBox = activeAudience === "all" || box.dataset.lens === activeAudience;
+      box.style.display = showBox ? "" : "none";
+    });
+
+    if (showCard) {
+      visibleCount += 1;
     }
-  } catch (_error) {
-    // Ignore storage access issues and fall back to the default theme.
-  }
-
-  return "dark";
-}
-
-function applyTheme(theme) {
-  state.theme = theme === "light" ? "light" : "dark";
-  document.body.dataset.theme = state.theme;
-
-  dom.themeButtons.forEach((button) => {
-    const isActive = button.dataset.themeValue === state.theme;
-    button.classList.toggle("is-active", isActive);
-    button.setAttribute("aria-pressed", String(isActive));
   });
 
-  try {
-    window.localStorage.setItem(THEME_STORAGE_KEY, state.theme);
-  } catch (_error) {
-    // Ignore storage failures without blocking the dashboard.
-  }
+  document.getElementById("emptyState").classList.toggle("is-visible", visibleCount === 0);
 }
 
-async function fetchPrice(symbol) {
-  const response = await fetch(PRICED_EXPOSURES[symbol].liveEndpoint, {
-    cache: "no-store",
-  });
+function bindControls() {
+  document.getElementById("searchInput").addEventListener("input", applyFilters);
 
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status}`);
-  }
-
-  const data = await response.json();
-  return {
-    price: data.price,
-    updatedAt: data.updatedAt,
-    source: "live",
-  };
-}
-
-async function loadLivePrices() {
-  dom.priceStatus.textContent = "Refreshing BTC and gold marks...";
-
-  const results = await Promise.allSettled(["BTC", "XAU"].map(fetchPrice));
-
-  results.forEach((result, index) => {
-    const symbol = index === 0 ? "BTC" : "XAU";
-    if (result.status === "fulfilled") {
-      state.prices[symbol] = result.value;
-    }
-  });
-
-  const liveCount = results.filter((result) => result.status === "fulfilled").length;
-  if (liveCount === results.length) {
-    dom.priceStatus.textContent = `Live prices loaded. BTC and gold updated ${formatDateTime(
-      state.prices.BTC.updatedAt,
-    )}.`;
-  } else if (liveCount > 0) {
-    dom.priceStatus.textContent = "Some live prices loaded. Missing endpoints fell back to the March 30, 2026 snapshot.";
-  } else {
-    dom.priceStatus.textContent = "Live fetch failed. Using the March 30, 2026 fallback snapshot.";
-  }
-
-  syncControlsToRanges();
-  renderAll();
-}
-
-function syncControlsToRanges() {
-  dom.btcRange.max = String(Math.max(150_000, Math.ceil(state.prices.BTC.price * 1.75 / 100) * 100));
-  dom.goldRange.max = String(Math.max(7_000, Math.ceil(state.prices.XAU.price * 1.75)));
-}
-
-function renderAll() {
-  const liveState = calculateLiveState(state.prices);
-  renderHeadlineMetrics(liveState);
-  renderHistory(liveState);
-  renderThresholdTable(liveState);
-  renderHaircutTable(liveState);
-  renderScenario(liveState);
-}
-
-function bindScenarioControls() {
-  const bindings = [
-    { range: dom.btcRange, input: dom.btcInput },
-    { range: dom.goldRange, input: dom.goldInput },
-  ];
-
-  bindings.forEach(({ range, input }) => {
-    range.addEventListener("input", () => {
-      input.value = range.value;
-      updateScenarioOutput();
-    });
-
-    input.addEventListener("input", () => {
-      const numericValue = Math.max(0, Number(input.value || 0));
-      const cappedValue = Math.min(Number(range.max), numericValue);
-      range.value = String(cappedValue);
-      updateScenarioOutput();
-    });
-
-    input.addEventListener("change", () => {
-      const numericValue = Math.max(0, Number(input.value || 0));
-      const cappedValue = Math.min(Number(range.max), numericValue);
-      range.value = String(cappedValue);
-      input.value = cappedValue.toFixed(2);
-      updateScenarioOutput();
-    });
-  });
-
-  dom.refreshButton.addEventListener("click", () => {
-    loadLivePrices().catch(() => {
-      dom.priceStatus.textContent = "Refresh failed. Using fallback prices.";
-      renderAll();
-    });
-  });
-}
-
-function bindThemeControls() {
-  dom.themeButtons.forEach((button) => {
+  document.querySelectorAll(".filter-button").forEach((button) => {
     button.addEventListener("click", () => {
-      applyTheme(button.dataset.themeValue);
+      document.querySelectorAll(".filter-button").forEach((candidate) => {
+        candidate.classList.toggle("is-active", candidate === button);
+      });
+      applyFilters();
     });
   });
 }
 
-function init() {
-  applyTheme(getInitialTheme());
-  renderReserveBreakdown();
-  syncControlsToRanges();
-  bindThemeControls();
-  bindScenarioControls();
-  renderAll();
-
-  loadLivePrices().catch(() => {
-    dom.priceStatus.textContent = "Live fetch failed. Using the March 30, 2026 fallback snapshot.";
-    renderAll();
-  });
-}
-
-init();
-
-</script>
+renderAllProducts();
+bindControls();
+applyFilters();
+    </script>
   </body>
 </html>
