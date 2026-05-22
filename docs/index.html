@@ -650,6 +650,607 @@ h4 {
     padding: 18px;
   }
 }
+
+/* Compact dark refresh */
+:root {
+  color-scheme: dark;
+  --bg: #07080c;
+  --ink: #f6f8fb;
+  --muted: #aeb7c8;
+  --panel: #10141d;
+  --panel-soft: #151b27;
+  --line: #273044;
+  --blue: #58a6ff;
+  --navy: #f6f8fb;
+  --green: #4adead;
+  --amber: #f7c46c;
+  --coral: #ff8b72;
+  --violet: #afa4ff;
+  --shadow: 0 20px 56px rgba(0, 0, 0, 0.36);
+}
+
+body {
+  background: linear-gradient(180deg, #080b12 0%, #0c111a 42%, #07080c 100%);
+  color: var(--ink);
+}
+
+a {
+  color: #86c5ff;
+}
+
+.page-shell {
+  width: min(1120px, calc(100vw - 36px));
+}
+
+.site-header {
+  padding: 24px 0 12px;
+}
+
+.topline {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.brand-lockup {
+  gap: 16px;
+  color: var(--ink);
+}
+
+.circle-mark {
+  display: none;
+}
+
+.logo-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--radius);
+  background: #ffffff;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+}
+
+.circle-logo {
+  display: block;
+  width: 176px;
+  height: auto;
+}
+
+.brand-kicker {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.brand-kicker span {
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.brand-kicker strong {
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.source-date {
+  max-width: 520px;
+  color: var(--muted);
+}
+
+.hero {
+  display: block;
+  padding-bottom: 18px;
+}
+
+.hero-copy {
+  padding: 0;
+}
+
+.eyebrow {
+  margin-bottom: 8px;
+  color: var(--green);
+}
+
+h1 {
+  max-width: 980px;
+  margin-bottom: 12px;
+  font-size: clamp(2.05rem, 3.8vw, 3.7rem);
+  line-height: 1.04;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 2.2vw, 2.15rem);
+}
+
+h3 {
+  font-size: 1.06rem;
+}
+
+.hero-text {
+  max-width: 900px;
+  margin-bottom: 0;
+  font-size: 1rem;
+  line-height: 1.48;
+}
+
+.hero-panel,
+.token-stack,
+.token-row,
+.hero-note {
+  display: none;
+}
+
+.stat-strip {
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.stat {
+  padding: 12px 14px;
+  border-color: var(--line);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02));
+}
+
+.stat-value {
+  color: var(--ink);
+  font-size: 1.25rem;
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  line-height: 1.3;
+}
+
+.section-band {
+  padding: 22px 0;
+  border-top-color: var(--line);
+}
+
+.section-header {
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.65fr);
+  gap: 18px;
+  margin-bottom: 16px;
+}
+
+.section-summary {
+  line-height: 1.42;
+}
+
+.audience-grid {
+  gap: 12px;
+}
+
+.audience-panel {
+  padding: 16px;
+  background: rgba(16, 20, 29, 0.92);
+}
+
+.audience-panel p {
+  margin-bottom: 0;
+  line-height: 1.42;
+}
+
+.tag-list {
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.tag {
+  min-height: 26px;
+  padding: 5px 8px;
+  background: #0c111a;
+  color: var(--ink);
+  font-size: 0.74rem;
+}
+
+.controls {
+  padding: 10px 0;
+  border-color: var(--line);
+  background: rgba(7, 8, 12, 0.9);
+}
+
+.controls-inner {
+  grid-template-columns: minmax(210px, 0.55fr) minmax(0, 1fr) auto;
+}
+
+.search-box,
+.filter-button,
+.jump-links a {
+  min-height: 38px;
+  border-color: var(--line);
+  border-radius: var(--radius);
+  background: #0d1320;
+  color: var(--ink);
+}
+
+.search-box::placeholder {
+  color: #788397;
+}
+
+.filter-button,
+.jump-links a {
+  padding: 8px 11px;
+  font-size: 0.82rem;
+}
+
+.filter-button.is-active {
+  border-color: #f6f8fb;
+  background: #f6f8fb;
+  color: #0a0f18;
+}
+
+.bucket-heading {
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.bucket-heading h2 {
+  margin-bottom: 6px;
+}
+
+.bucket-count {
+  min-width: 90px;
+  padding: 9px;
+  background: var(--panel-soft);
+}
+
+.bucket-count strong {
+  color: var(--ink);
+  font-size: 1.15rem;
+}
+
+.bucket-count-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(92px, 1fr));
+  gap: 8px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+.product-picker-grid {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.34fr) minmax(260px, 0.66fr);
+  gap: 12px;
+  margin-bottom: 12px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.product-picker-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.product-menu-panel {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.42fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.product-select-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.select-label {
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.product-select {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 40px 0 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #080d16;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 800;
+}
+
+.product-select:focus,
+.search-box:focus {
+  border-color: var(--blue);
+  outline: 2px solid rgba(88, 166, 255, 0.24);
+  outline-offset: 2px;
+}
+
+.selected-product-panel {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.product-card {
+  gap: 12px;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.product-top {
+  grid-template-columns: 38px 1fr;
+  gap: 11px;
+  align-items: center;
+}
+
+.product-icon {
+  width: 38px;
+  height: 38px;
+}
+
+.product-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.meta-row {
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.pill {
+  min-height: 24px;
+  padding: 4px 8px;
+  background: #0d1320;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.pill.ga {
+  background: rgba(74, 222, 173, 0.13);
+  color: #86f7cc;
+}
+
+.pill.beta {
+  background: rgba(175, 164, 255, 0.16);
+  color: #d2ccff;
+}
+
+.pill.limited {
+  background: rgba(247, 196, 108, 0.15);
+  color: #ffd994;
+}
+
+.summary {
+  font-size: 0.92rem;
+  line-height: 1.42;
+}
+
+.why-grid {
+  gap: 10px;
+}
+
+.why-box {
+  padding: 11px;
+  background: #0d1320;
+}
+
+.why-box strong {
+  color: var(--green);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+.why-box p {
+  font-size: 0.85rem;
+  line-height: 1.36;
+}
+
+.card-footer {
+  gap: 6px;
+}
+
+.source-link {
+  min-height: 26px;
+  padding: 5px 8px;
+  border-radius: var(--radius);
+  background: #0d1320;
+  color: var(--ink);
+  font-size: 0.72rem;
+}
+
+.source-grid {
+  gap: 12px;
+}
+
+.source-card {
+  padding: 14px;
+  background: var(--panel);
+}
+
+.source-card p {
+  font-size: 0.86rem;
+}
+
+#sources {
+  padding-top: 16px;
+}
+
+#sources .section-header {
+  margin-bottom: 10px;
+}
+
+#sources h2 {
+  margin-bottom: 6px;
+  font-size: 1.35rem;
+}
+
+.source-details {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.source-details summary {
+  min-height: 42px;
+  padding: 11px 14px;
+  color: var(--ink);
+  cursor: pointer;
+  font-weight: 850;
+}
+
+.source-details[open] {
+  padding-bottom: 14px;
+}
+
+.source-details[open] .source-grid {
+  padding: 0 14px;
+}
+
+.empty-state {
+  background: var(--panel);
+}
+
+@media (max-width: 900px) {
+  .controls-inner,
+  .section-header,
+  .audience-grid,
+  .source-grid,
+  .product-picker-grid,
+  .product-menu-panel {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .page-shell {
+    width: min(100vw - 22px, 1120px);
+  }
+
+  .site-header {
+    padding-top: 18px;
+  }
+
+  .topline {
+    display: grid;
+    justify-content: start;
+  }
+
+  .brand-lockup {
+    display: grid;
+    gap: 10px;
+  }
+
+  .circle-logo {
+    width: 168px;
+  }
+
+  .source-date {
+    text-align: left;
+    font-size: 0.78rem;
+  }
+
+  h1 {
+    font-size: 1.86rem;
+  }
+
+  .stat-strip {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .stat {
+    padding: 10px 8px;
+  }
+
+  .stat-value {
+    font-size: 1.05rem;
+  }
+
+  .stat-label {
+    font-size: 0.64rem;
+  }
+
+  .audience-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .audience-panel {
+    padding: 12px;
+  }
+
+  .audience-panel h3 {
+    font-size: 0.94rem;
+  }
+
+  .audience-panel p {
+    font-size: 0.78rem;
+    line-height: 1.35;
+  }
+
+  .tag-list {
+    display: none;
+  }
+
+  .bucket-count-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .bucket-count {
+    min-width: 0;
+    padding: 8px 4px;
+    font-size: 0.66rem;
+  }
+
+  .product-picker-grid,
+  .selected-product-panel {
+    padding: 12px;
+  }
+
+  .why-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .why-box {
+    padding: 9px;
+  }
+
+  .why-box p {
+    font-size: 0.76rem;
+  }
+
+  #sources .section-summary {
+    display: none;
+  }
+
+  .controls {
+    position: static;
+  }
+
+  .jump-links {
+    display: none;
+  }
+}
     </style>
   </head>
   <body>
@@ -657,10 +1258,13 @@ h4 {
       <div class="page-shell">
         <div class="topline">
           <div class="brand-lockup">
-            <span class="circle-mark" aria-hidden="true"></span>
-            <span>Circle product dashboard</span>
+            <span class="logo-badge"><img class="circle-logo" src="assets/circle-logo.avif" alt="Circle" /></span>
+            <span class="brand-kicker">
+              <span>Product dashboard</span>
+              <strong>Exchange and custodian map</strong>
+            </span>
           </div>
-          <div class="source-date">Built from internal Product Book, Audience Segmentation, and official Circle web pages. Checked May 22, 2026.</div>
+          <div class="source-date">Sources: Product Book, Audience Segmentation, and official Circle pages. Checked May 22, 2026.</div>
         </div>
 
         <div class="hero">
@@ -668,63 +1272,27 @@ h4 {
             <p class="eyebrow">Exchange and custodian product map</p>
             <h1>Why every Circle product matters to crypto exchanges and custodians</h1>
             <p class="hero-text">
-              This dashboard reframes the Circle portfolio around the buyer question: where does each product create a better trading, custody, settlement, liquidity, compliance, or client experience for a crypto exchange or custodian? Products are grouped into Payments, Digital Assets, and Arc.
+              This dashboard answers one buyer question: how each Circle product improves trading, custody, settlement, liquidity, compliance, or client experience for a crypto exchange or custodian.
             </p>
           </div>
-
-          <aside class="hero-panel" aria-label="Official token logos">
-            <div class="token-stack">
-              <div class="token-row">
-                <div class="token-logo usdc" aria-label="USDC logo">
-                  <svg viewBox="0 0 24 24" fill="none" role="img">
-                    <path d="M14.6409 8.04883H11.3778C10.2868 8.04883 9.40234 8.93329 9.40234 10.0243C9.40234 11.1154 10.2868 11.9998 11.3778 11.9998H13.1001C14.1911 11.9998 15.0756 12.8843 15.0756 13.9753C15.0756 15.0664 14.1911 15.9508 13.1001 15.9508H9.83699" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
-                    <path d="M12.2393 8.04942V6.73242" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
-                    <path d="M12.2393 17.2682V15.9512" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
-                    <path d="M9.36549 3C5.39708 4.06946 2.47656 7.69367 2.47656 12C2.47656 16.3063 5.39708 19.9305 9.36549 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
-                    <path d="M14.6335 3C18.6019 4.06946 21.5225 7.69367 21.5225 12C21.5225 16.3063 18.6019 19.9305 14.6335 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
-                  </svg>
-                </div>
-                <div>
-                  <p class="token-name">USDC</p>
-                  <p class="token-copy">Official Circle mark: digital dollar symbol from Circle site navigation, set in the USDC brand blue.</p>
-                </div>
-              </div>
-
-              <div class="token-row">
-                <div class="token-logo eurc" aria-label="EURC logo">
-                  <svg viewBox="0 0 24 24" fill="none" role="img">
-                    <path d="M8.76696 13.2678C8.76696 13.2678 8.65527 12.591 8.65527 12.0997C8.65527 11.6084 8.76696 10.9316 8.76696 10.9316" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
-                    <path d="M9.38893 3C5.42052 4.06946 2.5 7.69367 2.5 12C2.5 16.3063 5.42052 19.9305 9.38893 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
-                    <path d="M14.657 3C18.6254 4.06946 21.5459 7.69367 21.5459 12C21.5459 16.3063 18.6254 19.9305 14.657 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M15.7397 8.4225C15.4716 8.91359 14.8765 9.08262 14.4105 8.80003C13.2313 8.08487 11.6996 8.26017 10.6929 9.32122C10.4806 9.54491 10.306 9.79255 10.1687 10.0559H12.4232C12.9071 10.0559 13.2993 10.4481 13.2993 10.9319C13.2993 11.4157 12.9071 11.8079 12.4232 11.8079H9.38911C9.19554 11.9377 8.95793 11.9962 8.71359 11.9551C8.57802 11.9323 8.45348 11.881 8.34459 11.8079H6.88191C6.39808 11.8079 6.00586 11.4157 6.00586 10.9319C6.00586 10.4481 6.39808 10.0559 6.88191 10.0559H8.06567C8.29938 9.25585 8.71663 8.50235 9.31628 7.87036C10.961 6.13691 13.4589 5.85557 15.3815 7.02162C15.8475 7.30421 16.0078 7.9314 15.7397 8.4225ZM11.8692 14.1441C12.3531 14.1441 12.7453 13.7519 12.7453 13.2681C12.7453 12.7842 12.3531 12.392 11.8692 12.392H9.38918C9.1956 12.2622 8.95797 12.2037 8.71359 12.2448C8.57799 12.2676 8.45342 12.3189 8.34452 12.392H6.88203C6.3982 12.392 6.00598 12.7842 6.00598 13.2681C6.00598 13.7519 6.3982 14.1441 6.88203 14.1441H8.06569C8.29939 14.9441 8.71665 15.6976 9.31628 16.3295C10.961 18.063 13.4589 18.3443 15.3815 17.1783C15.8475 16.8957 16.0078 16.2685 15.7397 15.7774C15.4716 15.2863 14.8765 15.1173 14.4105 15.3999C13.2313 16.115 11.6996 15.9397 10.6929 14.8787C10.4806 14.655 10.306 14.4074 10.1687 14.1441H11.8692Z" fill="currentColor"></path>
-                  </svg>
-                </div>
-                <div>
-                  <p class="token-name">EURC</p>
-                  <p class="token-copy">Official Circle mark: EURC symbol from Circle site navigation, not the phased-out EUROC naming.</p>
-                </div>
-              </div>
-            </div>
-            <p class="hero-note">Logo paths are copied from Circle's official USDC/EURC navigation assets and paired with token treatments for dashboard use.</p>
-          </aside>
         </div>
 
         <div class="stat-strip" aria-label="Dashboard coverage">
           <div class="stat">
             <p class="stat-value" id="productCount">34</p>
-            <p class="stat-label">Circle products and product capabilities mapped</p>
+            <p class="stat-label">Circle products mapped</p>
           </div>
           <div class="stat">
             <p class="stat-value">3</p>
-            <p class="stat-label">Buckets: Payments, Digital Assets, Arc</p>
+            <p class="stat-label">Buckets</p>
           </div>
           <div class="stat">
             <p class="stat-value">2</p>
-            <p class="stat-label">Audience lenses: exchange and custodian</p>
+            <p class="stat-label">Audience lenses</p>
           </div>
           <div class="stat">
             <p class="stat-value">1</p>
-            <p class="stat-label">Goal: explain why each product matters</p>
+            <p class="stat-label">Buyer goal</p>
           </div>
         </div>
       </div>
@@ -779,53 +1347,45 @@ h4 {
           <button class="filter-button" type="button" data-audience="custodian">Custodian lens</button>
         </div>
         <nav class="jump-links" aria-label="Bucket navigation">
-          <a href="#payments">Payments</a>
-          <a href="#digital-assets">Digital Assets</a>
-          <a href="#arc">Arc</a>
+          <a href="#products">Products</a>
+          <a href="#audience">Audience</a>
+          <a href="#sources">Sources</a>
         </nav>
       </div>
     </div>
 
     <main>
-      <section class="section-band" id="payments">
+      <section class="section-band" id="products">
         <div class="page-shell">
           <div class="bucket-heading">
             <div>
-              <p class="eyebrow">Bucket 01</p>
-              <h2>Payments</h2>
-              <p class="section-summary">Products that help exchanges and custodians connect stablecoin liquidity to global payout, settlement, and FX flows.</p>
+              <p class="eyebrow">Product picker</p>
+              <h2>Bucketed by Payments, Digital Assets, and Arc</h2>
+              <p class="section-summary">Choose a bucket, then choose a product to see why an exchange or custodian would use it.</p>
             </div>
-            <div class="bucket-count"><strong id="paymentsCount">0</strong>Products</div>
+            <div class="bucket-count-grid" aria-label="Product counts by bucket">
+              <div class="bucket-count"><strong id="paymentsCount">0</strong>Payments</div>
+              <div class="bucket-count"><strong id="digitalCount">0</strong>Digital Assets</div>
+              <div class="bucket-count"><strong id="arcCount">0</strong>Arc</div>
+            </div>
           </div>
-          <div id="paymentsGrid" class="product-grid"></div>
-        </div>
-      </section>
 
-      <section class="section-band" id="digital-assets">
-        <div class="page-shell">
-          <div class="bucket-heading">
-            <div>
-              <p class="eyebrow">Bucket 02</p>
-              <h2>Digital Assets</h2>
-              <p class="section-summary">Stablecoins, tokenized funds, liquidity services, and reserve infrastructure that exchanges and custodians can list, custody, distribute, or use operationally.</p>
-            </div>
-            <div class="bucket-count"><strong id="digitalCount">0</strong>Products</div>
+          <div class="product-picker-grid" aria-label="Product dropdown menus">
+            <label class="product-picker-field" for="bucketSelect">
+              <span class="select-label">Bucket</span>
+              <select id="bucketSelect" class="product-select">
+                <option value="payments">Payments</option>
+                <option value="digital">Digital Assets</option>
+                <option value="arc">Arc</option>
+              </select>
+            </label>
+            <label class="product-picker-field" for="productSelect">
+              <span class="select-label">Product</span>
+              <select id="productSelect" class="product-select"></select>
+            </label>
           </div>
-          <div id="digitalGrid" class="product-grid"></div>
-        </div>
-      </section>
 
-      <section class="section-band" id="arc">
-        <div class="page-shell">
-          <div class="bucket-heading">
-            <div>
-              <p class="eyebrow">Bucket 03</p>
-              <h2>Arc</h2>
-              <p class="section-summary">Arc and developer infrastructure products that reduce blockchain complexity, unify USDC liquidity, and help teams ship stablecoin-native experiences.</p>
-            </div>
-            <div class="bucket-count"><strong id="arcCount">0</strong>Products</div>
-          </div>
-          <div id="arcGrid" class="product-grid"></div>
+          <div id="selectedProductGrid" class="product-grid"></div>
         </div>
       </section>
 
@@ -843,20 +1403,23 @@ h4 {
             <p class="section-summary">Product names, status, packaging, and audience definitions come from internal sources. Public claims and token wording are checked against official Circle pages.</p>
           </div>
 
-          <div class="source-grid">
-            <article class="source-card">
-              <h3>Circle Product Book</h3>
-              <p><a href="https://docs.google.com/document/d/1aBGKFLUylTK4ZcoKMhqqJM5E93vD0wFf3WuPFGAOKt4/edit?tab=t.0" target="_blank" rel="noreferrer">Internal product catalog</a> for availability, packaging, and product descriptions.</p>
-            </article>
-            <article class="source-card">
-              <h3>Audience Segmentation</h3>
-              <p><a href="https://coda.io/d/Strategy-Product-Marketing-S-PMM-Hub_dFDp1UBBf0-/Audience-Segmentation_suQwq6oR" target="_blank" rel="noreferrer">Internal audience framework</a> for trading services, collateral management, distribution, and use-case definitions.</p>
-            </article>
-            <article class="source-card">
-              <h3>Official Circle Pages</h3>
-              <p><a href="https://www.circle.com/usdc" target="_blank" rel="noreferrer">USDC</a>, <a href="https://www.circle.com/eurc" target="_blank" rel="noreferrer">EURC</a>, <a href="https://www.circle.com/mint" target="_blank" rel="noreferrer">Mint</a>, <a href="https://www.circle.com/cpn" target="_blank" rel="noreferrer">CPN</a>, <a href="https://www.arc.io" target="_blank" rel="noreferrer">Arc</a>, and product pages linked from each card.</p>
-            </article>
-          </div>
+          <details class="source-details">
+            <summary>View source links</summary>
+            <div class="source-grid">
+              <article class="source-card">
+                <h3>Circle Product Book</h3>
+                <p><a href="https://docs.google.com/document/d/1aBGKFLUylTK4ZcoKMhqqJM5E93vD0wFf3WuPFGAOKt4/edit?tab=t.0" target="_blank" rel="noreferrer">Internal product catalog</a> for availability, packaging, and product descriptions.</p>
+              </article>
+              <article class="source-card">
+                <h3>Audience Segmentation</h3>
+                <p><a href="https://coda.io/d/Strategy-Product-Marketing-S-PMM-Hub_dFDp1UBBf0-/Audience-Segmentation_suQwq6oR" target="_blank" rel="noreferrer">Internal audience framework</a> for trading services, collateral management, distribution, and use-case definitions.</p>
+              </article>
+              <article class="source-card">
+                <h3>Official Circle Pages</h3>
+                <p><a href="https://www.circle.com/usdc" target="_blank" rel="noreferrer">USDC</a>, <a href="https://www.circle.com/eurc" target="_blank" rel="noreferrer">EURC</a>, <a href="https://www.circle.com/mint" target="_blank" rel="noreferrer">Mint</a>, <a href="https://www.circle.com/cpn" target="_blank" rel="noreferrer">CPN</a>, <a href="https://www.arc.io" target="_blank" rel="noreferrer">Arc</a>, and product pages linked from each card.</p>
+              </article>
+            </div>
+          </details>
         </div>
       </section>
     </main>
@@ -1264,11 +1827,9 @@ const PRODUCTS = [
   },
 ];
 
-const gridByBucket = {
-  payments: document.getElementById("paymentsGrid"),
-  digital: document.getElementById("digitalGrid"),
-  arc: document.getElementById("arcGrid"),
-};
+const bucketSelect = document.getElementById("bucketSelect");
+const productSelect = document.getElementById("productSelect");
+const selectedProductGrid = document.getElementById("selectedProductGrid");
 
 const countByBucket = {
   payments: document.getElementById("paymentsCount"),
@@ -1310,91 +1871,149 @@ function tokenMiniIcon(name) {
   return null;
 }
 
-function renderProduct(product) {
-  const article = document.createElement("article");
-  article.className = "product-card";
-  article.dataset.bucket = product.bucket;
-  article.dataset.search = [
+const bucketOrder = ["payments", "digital", "arc"];
+const bucketLabels = {
+  payments: "Payments",
+  digital: "Digital Assets",
+  arc: "Arc",
+};
+const selectedByBucket = {};
+
+function productSearchText(product) {
+  return [
     product.name,
     product.category,
     product.summary,
     product.exchange,
     product.custodian,
   ].join(" ").toLowerCase();
+}
 
+function productMatches(product, query) {
+  return !query || productSearchText(product).includes(query);
+}
+
+function renderProductMarkup(product) {
   const availabilityClass = product.availability.toLowerCase();
   const miniIcon = tokenMiniIcon(product.icon);
   const bucketIconClass = product.bucket === "payments" ? "payments" : product.bucket === "digital" ? "digital" : "arc";
 
-  article.innerHTML = `
-    <div class="product-top">
-      <div class="product-icon ${bucketIconClass}">${miniIcon || product.icon}</div>
-      <div>
-        <h3>${product.name}</h3>
-        <div class="meta-row">
-          <span class="pill">${product.category}</span>
-          <span class="pill ${availabilityClass}">${product.availability}</span>
+  return `
+    <article class="product-card">
+      <div class="product-top">
+        <div class="product-icon ${bucketIconClass}">${miniIcon || product.icon}</div>
+        <div>
+          <h3>${product.name}</h3>
+          <div class="meta-row">
+            <span class="pill">${product.category}</span>
+            <span class="pill ${availabilityClass}">${product.availability}</span>
+          </div>
         </div>
       </div>
-    </div>
-    <p class="summary">${product.summary}</p>
-    <div class="why-grid">
-      <div class="why-box" data-lens="exchange">
-        <strong>Exchange use</strong>
-        <p>${product.exchange}</p>
+      <p class="summary">${product.summary}</p>
+      <div class="why-grid">
+        <div class="why-box" data-lens="exchange">
+          <strong>Exchange use</strong>
+          <p>${product.exchange}</p>
+        </div>
+        <div class="why-box" data-lens="custodian">
+          <strong>Custodian use</strong>
+          <p>${product.custodian}</p>
+        </div>
       </div>
-      <div class="why-box" data-lens="custodian">
-        <strong>Custodian use</strong>
-        <p>${product.custodian}</p>
-      </div>
-    </div>
-    <div class="card-footer">${sourceLinks(product.sources)}</div>
+      <div class="card-footer">${sourceLinks(product.sources)}</div>
+    </article>
   `;
+}
 
-  gridByBucket[product.bucket].appendChild(article);
+function applyAudienceVisibility(root = document) {
+  const activeAudience = document.querySelector(".filter-button.is-active").dataset.audience;
+
+  root.querySelectorAll(".product-card").forEach((card) => {
+    card.classList.toggle("single-lens", activeAudience !== "all");
+  });
+
+  root.querySelectorAll(".why-box").forEach((box) => {
+    const showBox = activeAudience === "all" || box.dataset.lens === activeAudience;
+    box.style.display = showBox ? "" : "none";
+  });
+}
+
+function productsForBucket(bucket, query = "") {
+  return PRODUCTS.filter((product) => product.bucket === bucket && productMatches(product, query));
+}
+
+function updateBucketCounts(query = "") {
+  bucketOrder.forEach((bucket) => {
+    countByBucket[bucket].textContent = String(productsForBucket(bucket, query).length);
+  });
+}
+
+function renderSelectedProduct(product) {
+  selectedProductGrid.innerHTML = `<div class="selected-product-panel">${renderProductMarkup(product)}</div>`;
+  applyAudienceVisibility(selectedProductGrid);
+}
+
+function renderProductPicker({ preserveProduct = true } = {}) {
+  const query = document.getElementById("searchInput").value.trim().toLowerCase();
+  const matchesByBucket = Object.fromEntries(bucketOrder.map((bucket) => [bucket, productsForBucket(bucket, query)]));
+  const visibleCount = bucketOrder.reduce((total, bucket) => total + matchesByBucket[bucket].length, 0);
+  let activeBucket = bucketSelect.value || "payments";
+
+  updateBucketCounts(query);
+  document.getElementById("emptyState").classList.toggle("is-visible", visibleCount === 0);
+
+  if (visibleCount === 0) {
+    productSelect.innerHTML = "";
+    productSelect.disabled = true;
+    selectedProductGrid.innerHTML = "";
+    return;
+  }
+
+  if (matchesByBucket[activeBucket].length === 0) {
+    activeBucket = bucketOrder.find((bucket) => matchesByBucket[bucket].length > 0);
+    bucketSelect.value = activeBucket;
+  }
+
+  const bucketProducts = matchesByBucket[activeBucket];
+  const previousProduct = preserveProduct ? selectedByBucket[activeBucket] : "";
+  const selectedProduct = bucketProducts.find((product) => product.name === previousProduct) || bucketProducts[0];
+  selectedByBucket[activeBucket] = selectedProduct.name;
+
+  productSelect.disabled = false;
+  productSelect.innerHTML = bucketProducts
+    .map((product) => `<option value="${product.name}" ${product.name === selectedProduct.name ? "selected" : ""}>${product.name}</option>`)
+    .join("");
+  renderSelectedProduct(selectedProduct);
 }
 
 function renderAllProducts() {
-  PRODUCTS.forEach(renderProduct);
   document.getElementById("productCount").textContent = String(PRODUCTS.length);
-  Object.keys(countByBucket).forEach((bucket) => {
-    countByBucket[bucket].textContent = String(PRODUCTS.filter((product) => product.bucket === bucket).length);
-  });
+  renderProductPicker();
 }
 
 function applyFilters() {
-  const query = document.getElementById("searchInput").value.trim().toLowerCase();
-  const activeAudience = document.querySelector(".filter-button.is-active").dataset.audience;
-  let visibleCount = 0;
-
-  document.querySelectorAll(".product-card").forEach((card) => {
-    const matchesQuery = !query || card.dataset.search.includes(query);
-    const showCard = matchesQuery;
-    card.classList.toggle("is-hidden", !showCard);
-    card.classList.toggle("single-lens", activeAudience !== "all");
-
-    card.querySelectorAll(".why-box").forEach((box) => {
-      const showBox = activeAudience === "all" || box.dataset.lens === activeAudience;
-      box.style.display = showBox ? "" : "none";
-    });
-
-    if (showCard) {
-      visibleCount += 1;
-    }
-  });
-
-  document.getElementById("emptyState").classList.toggle("is-visible", visibleCount === 0);
+  renderProductPicker();
 }
 
 function bindControls() {
   document.getElementById("searchInput").addEventListener("input", applyFilters);
+  bucketSelect.addEventListener("change", () => renderProductPicker({ preserveProduct: false }));
+  productSelect.addEventListener("change", () => {
+    const product = PRODUCTS.find((candidate) => candidate.bucket === bucketSelect.value && candidate.name === productSelect.value);
+    if (!product) {
+      return;
+    }
+    selectedByBucket[bucketSelect.value] = product.name;
+    renderSelectedProduct(product);
+  });
 
   document.querySelectorAll(".filter-button").forEach((button) => {
     button.addEventListener("click", () => {
       document.querySelectorAll(".filter-button").forEach((candidate) => {
         candidate.classList.toggle("is-active", candidate === button);
       });
-      applyFilters();
+      applyAudienceVisibility(selectedProductGrid);
     });
   });
 }
